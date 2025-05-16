@@ -1,24 +1,24 @@
-var { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 
-var prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 
 const getAll = async (query) => {
-  var { createdBy, sort, direction } = query;
+  const { createdBy, sort, direction } = query;
 
   // I create valid sort field list.
-  var validSortFields = ['name', 'createdAt'];
+  const validSortFields = ['name', 'createdAt'];
 
   // This is same to validSortFields
-  var validDirectionFields = ['asc', 'desc'];
+  const validDirectionFields = ['asc', 'desc'];
 
-  var directionField = validDirectionFields.includes(direction) ? direction : 'desc';
+  const directionField = validDirectionFields.includes(direction) ? direction : 'desc';
 
   // Checked validSortFields includes sort parameter. Default 'createdAt'
-  var sortField = validSortFields.includes(sort) ? sort : 'createdAt';
+  const sortField = validSortFields.includes(sort) ? sort : 'createdAt';
 
   try {
-    var projects = await prisma.project.findMany({
+    const projects = await prisma.project.findMany({
       orderBy: {
         [sortField]: directionField,
       },
@@ -31,12 +31,12 @@ const getAll = async (query) => {
 }
 
 const create = async (body, id) => {
-  var { name, description } = body;
+  const { name, description } = body;
 
-  var createdById = id;
+  const createdById = id;
 
   try {
-    var project = await prisma.project.create({
+    const project = await prisma.project.create({
       data: { name, description, createdById },
     });
 
@@ -47,7 +47,7 @@ const create = async (body, id) => {
 }
 
 const update = async (body, id) => {
-  var { name, description } = body;
+  const { name, description } = body;
 
   try {
     const project = await prisma.project.update({
@@ -63,7 +63,7 @@ const update = async (body, id) => {
 
 const deleteProject = async (id) => {
   try {
-    var deletedProject = await prisma.project.delete({
+    const deletedProject = await prisma.project.delete({
       where: { id },
     });
 

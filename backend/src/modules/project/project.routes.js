@@ -1,7 +1,7 @@
-var express = require('express');
-var projectController = require('./project.controller');
+const express = require('express');
+const projectController = require('./project.controller');
 
-var router = express.Router();
+const router = express.Router();
 
 router.post('/', projectController.create);
 

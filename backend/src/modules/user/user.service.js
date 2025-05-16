@@ -1,10 +1,10 @@
-var { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 
-var prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 const getAll = async () => {
   try {
-    var users = await prisma.user.findMany();
+    const users = await prisma.user.findMany();
     return users;
   } catch (error) {
     console.error(error);
@@ -13,7 +13,7 @@ const getAll = async () => {
 
 const getById = async (id) => {
   try {
-    var user = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id }
     });
     return user;

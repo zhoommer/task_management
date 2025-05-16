@@ -1,18 +1,18 @@
-var createError = require('http-errors');
-var path = require('path');
-var routes = require('./src/routes/index');
-var accessLogStream = require('./src/utils/logging');
-var express = require('express');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var db = require('./src/config/db');
+const createError = require('http-errors');
+const path = require('path');
+const routes = require('./src/routes/index');
+const accessLogStream = require('./src/utils/logging');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const db = require('./src/config/db');
 
 require('dotenv').config();
 
 // port constant
 const PORT = process.env.PUBLIC_NODE_PORT_NUMBER || 3000;
 
-var app = express();
+const app = express();
 
 app.use(logger('combined', { stream: accessLogStream }));
 app.use(express.json());

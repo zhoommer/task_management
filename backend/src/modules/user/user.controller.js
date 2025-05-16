@@ -1,4 +1,4 @@
-var userService = require('./user.service');
+const userService = require('./user.service');
 
 const getAll = async (req, res) => {
   const users = await userService.getAll();
@@ -13,13 +13,13 @@ const getById = async (req, res) => {
     return res.status(400).json({ message: 'Missing field user id' });
   }
 
-  var user = await userService.getById(id);
+  const user = await userService.getById(id);
 
   return res.status(200).json({ message: 'User found.', data: user });
 }
 
 const deleteUser = async (req, res) => {
-  var { id } = req.params;
+  const { id } = req.params;
 
   if (!id || id == null) return res.status(400).json({ message: 'Missing field user id' });
 
