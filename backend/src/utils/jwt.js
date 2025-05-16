@@ -23,7 +23,7 @@ module.exports.getPayloadFromToken = async (token) => {
 
 const jwtSign = (payload) => {
   const options = {
-    algorithm: 'RS256',
+    algorithm: 'HS256',
     expiresIn: '24h'
   }
   return new Promise((resolve, reject) => {
@@ -39,7 +39,7 @@ const jwtSign = (payload) => {
 
 const jwtVerify = (token) => {
   const options = {
-    algorithms: ['RS256']
+    algorithms: ['HS256']
   }
   return new Promise((resolve, reject) => {
     try {

@@ -25,7 +25,7 @@ const login = async (req, res) => {
 
   var token = await authService.login(req.body);
 
-  return res.status(200).json({ message: 'Logged in successfully.', data: token });
+  return res.status(200).json({ message: 'Logged in successfully.', token: token });
 }
 
 module.exports = {

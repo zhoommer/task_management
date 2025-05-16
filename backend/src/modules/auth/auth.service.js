@@ -29,13 +29,13 @@ const login = async (body) => {
     where: { email }
   });
 
-  if (!user) new Error('User not found.');
+  if (!user) throw new Error('User not found.');
 
   var passwordMatch = await comparePassword(passwordHash, user.passwordHash);
 
-  if (!passwordMatch) new Error('Password not matched!');
+  if (!passwordMatch) throw new Error('Password not matched!');
 
-  var token = await generateToken();
+  var token = await generateToken(user.id, user.name);
 
   return token;
 }
