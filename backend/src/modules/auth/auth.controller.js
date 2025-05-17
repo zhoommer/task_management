@@ -23,9 +23,9 @@ const login = async (req, res) => {
     return res.status(400).json({ message: `Missing or invalid field: ${result.missingField}` });
   }
 
-  const token = await authService.login(req.body);
+  const response = await authService.login(req.body);
 
-  return res.status(200).json({ message: 'Logged in successfully.', token: token });
+  return res.status(200).json({ message: 'Logged in successfully.', data: response });
 }
 
 module.exports = {

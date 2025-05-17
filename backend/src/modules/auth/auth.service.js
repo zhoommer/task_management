@@ -37,7 +37,10 @@ const login = async (body) => {
 
   const token = await generateToken(user.id, user.name);
 
-  return token;
+  return {
+    token: token,
+    user: user,
+  };
 }
 
 module.exports = {

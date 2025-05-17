@@ -1,0 +1,67 @@
+import { Link, useNavigate } from 'react-router-dom';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator } from './ui/dropdown-menu';
+import { Avatar, AvatarFallback } from './ui/avatar';
+import { Button } from './ui/button';
+import { LogOut, Settings, User } from 'lucide-react';
+import { toast } from 'react-toastify';
+
+
+
+const Navbar = () => {
+  const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  const firstChar = user?.name.split(' ')[0][0];
+
+  const lastChar = user?.name.split(' ').at(-1)[0];
+
+  const logOut = async () => {
+    localStorage.clear();
+    toast.info('Çıkış yapılıyor');
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    navigate('/auth/login');
+  }
+
+  return (
+    <div className="flex justify-around items-center border-b border-b-purple-300 py-5">
+      <div>
+        <Link to={'/'} className="link-btn-gradient bg-clip-text text-transparent text-3xl font-bold transition duration-300 hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]">Task Master</Link>
+      </div>
+      <div>2</div>
+      <div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Avatar>
+              <AvatarFallback>{firstChar + lastChar}</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56 border border-purple-200 custom-bg-gradient">
+            <DropdownMenuLabel className='text-zinc-100'>Ayarlar</DropdownMenuLabel>
+            <DropdownMenuSeparator className='border border-purple-300' />
+            <Button variant='link' className='w-full link-btn-gradient hover:text-zinc-200'>
+              <Link to={'#'} className='w-full flex justify-center items-center gap-2'>
+                Profile
+                <User />
+              </Link>
+            </Button>
+            <Button variant='link' className='w-full link-btn-gradient mt-1 hover:text-zinc-200'>
+              <Link to={'#'} className='w-full flex justify-center items-center gap-2'>
+                Ayarlar
+                <Settings />
+              </Link>
+            </Button>
+            <Button variant='link' className='w-full link-btn-gradient mt-1 hover:text-zinc-200' onClick={logOut}>
+              <Link to={'#'} className='w-full flex justify-center items-center gap-2'>
+                Çıkış
+                <LogOut />
+              </Link>
+            </Button>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
+  )
+}
+
+export default Navbar;

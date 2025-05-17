@@ -11,6 +11,17 @@ const getAll = async () => {
   }
 }
 
+const getMe = async (id) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 const getById = async (id) => {
   try {
     const user = await prisma.user.findUnique({
@@ -35,6 +46,7 @@ const deleteUser = async (id) => {
 
 module.exports = {
   getAll,
+  getMe,
   getById,
   deleteUser,
 }

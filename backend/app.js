@@ -3,6 +3,7 @@ const path = require('path');
 const routes = require('./src/routes/index');
 const accessLogStream = require('./src/utils/logging');
 const express = require('express');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const db = require('./src/config/db');
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 // routes
 app.use('/api/v1', routes);
