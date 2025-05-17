@@ -4,15 +4,17 @@ const { FIELDS, STATUS, PRIORITY } = require('./constants');
 
 
 const getAll = async (req, res) => {
-  const allTasks = await taskService.getAll();
+  const queries = req.query;
+
+  const allTasks = await taskService.getAll(queries);
 
   return res.status(200).json({ message: 'All tasks succesfully returned.', data: allTasks });
 }
 
 const create = async (req, res) => {
-  if (!STATUS.includes(req.body.status)) return res.status(400).json({ message: 'Status should be waiting, inprogress, test, done.' });
+  if (!STATUS.includes(req.body.status)) return res.status(400).json({ message: 'Status must be waiting, inprogress, test, done.' });
 
-  if (!PRIORITY.includes(req.body.priority)) return res.status(400).json({ message: 'Priority should be low, medium, high, critical.' });
+  if (!PRIORITY.includes(req.body.priority)) return res.status(400).json({ message: 'Priority must be low, medium, high, critical.' });
 
   const result = validateFields(req.body, FIELDS);
 
@@ -30,7 +32,52 @@ const create = async (req, res) => {
 
 }
 
+const update = async (req, res) => {
+  if (!STATUS.includes(req.body.status)) return res.status(400).json({ message: 'Status must be waiting, inprogress, test, done.' });
+
+  if (!PRIORITY.includes(req.body.priority)) return res.status(400).json({ message: 'Priority must be low, medium, high, critical.' });
+
+  const result = validateFields(req.body, FIELDS);
+
+  if (!result.valid) {
+    return res.status(400).json({ message: `Missing or invalid field: ${result.missingField}` });
+  }
+
+  const { id } = req.params;
+
+  if (!id) return res.status(400).json({ message: 'Task id is required.' });
+
+  const updatedTask = await taskService.update(req.body, id);
+
+  return res.status(201).json({ messasge: 'Task succesfully updated.', data: updatedTask });
+}
+
+const updateTaskStatus = async (req, res) => {
+  const { status } = req.body;
+
+  if (!status) return res.status(400).json({ message: 'Status field is required.' });
+
+  if (!STATUS.includes(status)) return res.status(400).json({ message: 'Status must be waiting, inprogress, test or done.' });
+
+  const updatedTask = await taskService.updateTaskStatus(status);
+
+  return status(200).json({ message: 'Task updated succesfully.', data: updatedTask });
+}
+
+const deleteTask = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) return res.status(400).json({ message: "Task id required." });
+
+  const deletedTask = await taskService.deleteTask(Number(id));
+
+  return res.status(200).json({ message: "Task deleted succesfully.", data: deletedTask });
+}
+
 module.exports = {
   getAll,
   create,
+  update,
+  updateTaskStatus,
+  deleteTask,
 }
