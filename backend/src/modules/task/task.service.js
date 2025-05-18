@@ -4,18 +4,15 @@ const prisma = new PrismaClient();
 
 const getAll = async (queries) => {
 
-  const { cursor, limit } = queries;
+  const { status } = queries;
+
+  const projectId = Number(queries.projectId);
 
   try {
-    const queryOptions = {
-      take: Number(limit) || 5,
-      skip: cursor ? 1 : 0,
-      cursor: cursor ? { id: Number(cursor) } : undefined,
-      orderBy: { id: 'desc' },
-    }
-
-
-    const allTasks = await prisma.task.findMany(queryOptions);
+    const allTasks = await prisma.task.findMany({
+      where: projectId || status ? { ...(projectId && { projectId }), ...(status && { status }) } : {},
+      include: { createdBy: { select: { id: true, name: true, createdAt: true } }, assignments: true }
+    });
     return allTasks;
   } catch (error) {
     console.error(error);

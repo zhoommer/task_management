@@ -1,6 +1,10 @@
+import TaskContainer from "@/features/task/components/taskContainer";
+
 const HomePage = () => {
   return (
-    <div>Home</div>
+    <div>
+      <TaskContainer />
+    </div>
   )
 }
 

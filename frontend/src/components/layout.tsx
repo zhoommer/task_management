@@ -1,3 +1,4 @@
+import Aside from "./aside";
 import Navbar from "./navbar";
 
 
@@ -10,12 +11,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </nav>
 
       <div className="flex">
-        <aside className="w-[200px] border">Aside</aside>
-
+        <aside className="w-[200px]">
+          <Aside />
+        </aside>
         <section className="grow">{children}</section>
       </div>
-
-      <footer>Footer</footer>
     </div>
   )
 }

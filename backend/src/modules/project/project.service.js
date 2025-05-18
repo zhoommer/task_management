@@ -22,7 +22,11 @@ const getAll = async (query) => {
       orderBy: {
         [sortField]: directionField,
       },
-      include: createdBy === 'true' ? { createdBy: true } : undefined // if query parameter == 'true' include users info
+      include: createdBy === 'true' ? {
+        createdBy: {
+          select: { id: true, name: true, createdAt: true }
+        }
+      } : undefined // if query parameter == 'true' include users info
     });
     return projects;
   } catch (error) {

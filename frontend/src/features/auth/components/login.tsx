@@ -71,6 +71,7 @@ const LoginPage = () => {
               }
             </Button>
             <Button
+              type='button'
               variant="outline"
               className={cn(
                 "w-full sm:w-auto text-gray-300 hover:text-white hover:bg-zinc-500/20 border-zinc-500/30",

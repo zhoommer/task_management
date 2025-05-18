@@ -25,7 +25,7 @@ const Routes = () => {
       <Route path="/auth/login" element={<LoginPage />} />
 
       <Route element={<PrivateRoutes />}>
-        <Route path="/" element={<Layout children={<HomePage />} />} />
+        <Route path="" element={<Layout children={<HomePage />} />} />
       </Route>
     </Router>
   );

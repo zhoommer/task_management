@@ -24,7 +24,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="flex justify-around items-center border-b border-b-purple-300 py-5">
+    <div className="flex justify-around items-center border-b border-b-zinc-800 py-5">
       <div>
         <Link to={'/'} className="link-btn-gradient bg-clip-text text-transparent text-3xl font-bold transition duration-300 hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]">Task Master</Link>
       </div>
@@ -32,13 +32,13 @@ const Navbar = () => {
       <div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Avatar>
+            <Avatar className='drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]'>
               <AvatarFallback>{firstChar + lastChar}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 border border-purple-200 custom-bg-gradient">
+          <DropdownMenuContent className="w-56 border border-zinc-800 custom-bg-gradient">
             <DropdownMenuLabel className='text-zinc-100'>Ayarlar</DropdownMenuLabel>
-            <DropdownMenuSeparator className='border border-purple-300' />
+            <DropdownMenuSeparator className='border border-zinc-700' />
             <Button variant='link' className='w-full link-btn-gradient hover:text-zinc-200'>
               <Link to={'#'} className='w-full flex justify-center items-center gap-2'>
                 Profile
