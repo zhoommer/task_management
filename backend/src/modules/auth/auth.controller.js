@@ -10,7 +10,7 @@ const register = async (req, res) => {
     return res.status(400).json({ message: `Missing or invalid field: ${result.missingField}` });
   }
 
-  const user = await authService.create(req.body);
+  const user = await authService.register(req.body);
   return res.status(201).json({ message: 'User created successfully.', data: user });
 }
 

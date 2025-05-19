@@ -8,7 +8,9 @@ const getByTaskId = async (req, res) => {
 
   if (!taskId) return res.status(400).json({ message: 'Missing parameter: taskId' });
 
-  return assignmentService.getByTaskId(Number(taskId), userId);
+  const result = await assignmentService.getByTaskId(Number(taskId), userId);
+
+  return res.status(200).json({ message: 'Assignment returned successfully.', data: result });
 }
 
 

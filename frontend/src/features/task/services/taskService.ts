@@ -7,11 +7,6 @@ export const taskService = {
     const response = await axiosClient.get<Response>(`/task?projectId=${projectId}&status=${status}`);
     return response.data;
   },
-
-  async getTaskAssignmentByTaskId(taskId: string) {
-    const response = await axiosClient.get(`/assignment/${taskId}`);
-    return response.data;
-  }
 }
 
 

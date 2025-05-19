@@ -11,7 +11,10 @@ const getAll = async (queries) => {
   try {
     const allTasks = await prisma.task.findMany({
       where: projectId || status ? { ...(projectId && { projectId }), ...(status && { status }) } : {},
-      include: { createdBy: { select: { id: true, name: true, createdAt: true } }, assignments: true }
+      include: {
+        createdBy: { select: { id: true, name: true, createdAt: true } },
+        assignments: { select: { user: { select: { name: true } } } },
+      },
     });
     return allTasks;
   } catch (error) {
@@ -20,7 +23,7 @@ const getAll = async (queries) => {
 }
 
 const create = async (body, createdById) => {
-  const { title, description, status, priority, dueDate, projectId } = body;
+  const { title, description, status, priority, dueDate, projectId, assignedUserId } = body;
 
   try {
     const result = await prisma.$transaction(async (prisma) => {
@@ -28,7 +31,7 @@ const create = async (body, createdById) => {
         data: { title, description, status, priority, dueDate, projectId, createdById }
       });
       const taskAssignment = await prisma.taskAssignment.create({
-        data: { taskId: task.id, userId: createdById }
+        data: { taskId: task.id, userId: assignedUserId }
       });
       return { task, taskAssignment };
     });

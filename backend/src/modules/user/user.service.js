@@ -4,7 +4,10 @@ const prisma = new PrismaClient();
 
 const getAll = async () => {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      select: { id: true, name: true, email: true, createdAt: true }
+    });
+
     return users;
   } catch (error) {
     console.error(error);

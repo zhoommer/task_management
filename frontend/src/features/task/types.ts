@@ -6,8 +6,7 @@ type CreatedBy = {
 }
 
 type Assignment = {
-  taskId: number;
-  userId: string;
+  user: { name: string };
 }
 
 export type Task = {
@@ -23,7 +22,7 @@ export type Task = {
   createdAt: string;
   updatedAt: string;
 
-  assingments: Assignment[];
+  assignments: Assignment[];
 }
 
 export type Response = {

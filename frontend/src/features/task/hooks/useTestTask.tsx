@@ -17,7 +17,7 @@ export default function useTestTask() {
     const fetchTestTasks = async () => {
       try {
         setLoading(true);
-        const response = await taskService.getAll(projectId, 'waiting');
+        const response = await taskService.getAll(projectId, 'test');
         setTasks(response.data);
       } catch (error) {
         console.log(error)
