@@ -31,7 +31,7 @@ const Aside = () => {
   }, [])
 
   return (
-    <Accordion type="single" collapsible className="bg-gray-950 text-zinc-200 h-full">
+    <Accordion type="single" collapsible className="text-zinc-200 h-full">
       <AccordionItem value="projects" className="bg-gradient-to-r from-blue-500 to-purple-600">
         <AccordionTrigger className="rounded w-full border-b relative p-1">
           <span>

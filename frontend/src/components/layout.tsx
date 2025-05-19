@@ -11,7 +11,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </nav>
 
       <div className="flex">
-        <aside className="w-[200px]">
+        <aside className="w-[200px] py-3 rounded-xl bg-gray-950 mt-2">
           <Aside />
         </aside>
         <section className="grow">{children}</section>
