@@ -24,11 +24,10 @@ const Navbar = () => {
   }
 
   return (
-    <div className="flex justify-around items-center border-b border-b-zinc-800 py-5">
+    <div className="flex justify-around items-center border-b border-b-zinc-300 bg-gradient-to-r from-zinc-100 to-gray-100 py-5">
       <div>
         <Link to={'/'} className="link-btn-gradient bg-clip-text text-transparent text-3xl font-bold transition duration-300 hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]">Task Master</Link>
       </div>
-      <div>2</div>
       <div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -36,22 +35,22 @@ const Navbar = () => {
               <AvatarFallback>{firstChar + lastChar}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 border border-zinc-800 custom-bg-gradient">
-            <DropdownMenuLabel className='text-zinc-100'>Ayarlar</DropdownMenuLabel>
-            <DropdownMenuSeparator className='border border-zinc-700' />
-            <Button variant='link' className='w-full link-btn-gradient hover:text-zinc-200'>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel className=''>Ayarlar</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <Button variant='link' className='w-full shadow-sm hover:bg-zinc-100'>
               <Link to={'#'} className='w-full flex justify-center items-center gap-2'>
                 Profile
                 <User />
               </Link>
             </Button>
-            <Button variant='link' className='w-full link-btn-gradient mt-1 hover:text-zinc-200'>
+            <Button variant='link' className='w-full mt-1 shadow-sm hover:bg-zinc-100'>
               <Link to={'#'} className='w-full flex justify-center items-center gap-2'>
                 Ayarlar
                 <Settings />
               </Link>
             </Button>
-            <Button variant='link' className='w-full link-btn-gradient mt-1 hover:text-zinc-200' onClick={logOut}>
+            <Button variant='link' className='w-full mt-1 shadow-sm hover:bg-zinc-100' onClick={logOut}>
               <Link to={'#'} className='w-full flex justify-center items-center gap-2'>
                 Çıkış
                 <LogOut />

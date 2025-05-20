@@ -10,5 +10,5 @@ export type Project = {
   description: string;
   createdById: string;
   createdAt: string;
-  createdBy: CreatedBy;
+  createdBy?: CreatedBy;
 }

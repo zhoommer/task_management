@@ -34,7 +34,7 @@ const DoneTask = () => {
 
   return (
     <div
-      className="border border-b-0 border-t-0 border-zinc-800 rounded-xl shadow-sm hover:shadow-green-400 transition-all p-3"
+      className="rounded-xl bg-gradient-to-b from-sky-200 to-green-200 p-3"
     >
       <div className="rounded-lg p-2 bg-gradient-to-r from-sky-500 to-green-500 flex items-center justify-center gap-2">
         <h3 className="text-zinc-200">Biten</h3>
