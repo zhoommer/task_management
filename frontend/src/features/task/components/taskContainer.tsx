@@ -1,3 +1,4 @@
+import CreateTask from "./createTask";
 import DoneTask from "./doneTask";
 import InProgressTask from "./inProgressTask";
 import TestTask from "./testTask";
@@ -12,6 +13,7 @@ const TaskContainer = () => {
       <InProgressTask />
       <TestTask />
       <DoneTask />
+      <CreateTask />
     </div>
   )
 }

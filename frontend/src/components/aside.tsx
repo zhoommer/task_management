@@ -33,7 +33,7 @@ const Aside = () => {
   return (
     <Accordion type="single" collapsible className="h-full">
       <AccordionItem value="projects" className="">
-        <AccordionTrigger className="w-full bg-gradient-to-r from-blue-600 to-blue-900 text-white relative p-2">
+        <AccordionTrigger className="w-full rounded bg-gradient-to-r from-blue-600 to-blue-900 text-white relative p-2">
           <span>
             Projeler
           </span>
@@ -43,7 +43,7 @@ const Aside = () => {
           {
             projects.map((project, index) => (
               <Link to={{ pathname: '', search: `?projectId=${project.id}` }} key={index}
-                className={`text-sm p-2 shadow-sm ${activeLink(project.id) ? 'bg-blue-500 text-white' : ''} transition-all`}
+                className={`text-sm p-2 shadow-sm ${activeLink(project.id) ? 'bg-gradient-to-r from-blue-400 to-blue-700 text-white' : ''} transition-all`}
               >
                 {project.name}
               </Link>

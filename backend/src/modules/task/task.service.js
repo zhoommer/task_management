@@ -23,12 +23,12 @@ const getAll = async (queries) => {
 }
 
 const create = async (body, createdById) => {
-  const { title, description, status, priority, dueDate, projectId, assignedUserId } = body;
+  const { title, description, priority, dueDate, projectId, assignedUserId } = body;
 
   try {
     const result = await prisma.$transaction(async (prisma) => {
       const task = await prisma.task.create({
-        data: { title, description, status, priority, dueDate, projectId, createdById }
+        data: { title, description, priority, dueDate, projectId, createdById }
       });
       const taskAssignment = await prisma.taskAssignment.create({
         data: { taskId: task.id, userId: assignedUserId }

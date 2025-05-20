@@ -21,9 +21,12 @@ export const projectSlice = createSlice({
     },
     setProjects: (state, action: PayloadAction<Project[]>) => {
       state.projects = action.payload;
+    },
+    addProject: (state, action: PayloadAction<Project>) => {
+      state.projects.push(action.payload);
     }
   },
 });
 
 export default projectSlice.reducer;
-export const { setLoading, setProjects } = projectSlice.actions;
+export const { setLoading, setProjects, addProject } = projectSlice.actions;

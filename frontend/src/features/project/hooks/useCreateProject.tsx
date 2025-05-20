@@ -2,8 +2,11 @@ import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { projectService } from "../services/projectService";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "@/features/store";
+import { addProject } from "../projectSlice";
 
 export default function useCreateProject() {
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState<boolean>(false);
   const [formState, setFormState] = useState<{ name: string; description: string }>({
     name: '',
@@ -24,6 +27,7 @@ export default function useCreateProject() {
       setLoading(true);
       const response = await projectService.create(formState);
       toast.success(`${response.data.name} başarılı bir şekilde oluşturuldu.`);
+      dispatch(addProject(response.data));
     } catch (error) {
       console.log(error);
     } finally {

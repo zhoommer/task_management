@@ -4,6 +4,7 @@ import Navbar from "./navbar";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import CreateProject from "@/features/project/components/createProject";
+import AddTaskButton from "@/features/task/components/addButton";
 
 
 
@@ -23,8 +24,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               Proje Ekle
               <PlusIcon />
             </DialogTrigger>
-            <DialogContent className="bg-gray-950 border-gray-800">
-              <DialogHeader className="text-zinc-200">
+            <DialogContent>
+              <DialogHeader>
                 <DialogTitle>Proje Ekle</DialogTitle>
                 <CreateProject />
               </DialogHeader>
@@ -33,6 +34,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </aside>
 
         <section className="grow">{children}</section>
+
+        <AddTaskButton />
       </div>
     </div>
   )

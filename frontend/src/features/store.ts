@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 import projectReducer from "./project/projectSlice";
+import dialogReducer from "./dialog/dialogSlice";
 
 export const store = configureStore({
   reducer: {
     project: projectReducer,
+    dialog: dialogReducer,
   },
 });
 

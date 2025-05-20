@@ -21,7 +21,7 @@ const CreateProject = () => {
       </div>
 
       <div className="flex justify-end">
-        <Button type="submit" disabled={loading}>Kaydet</Button>
+        <Button className="bg-blue-700 hover:bg-blue-800" type="submit" disabled={loading}>Kaydet</Button>
       </div>
     </form>
   )

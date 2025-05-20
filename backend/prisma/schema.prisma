@@ -55,7 +55,7 @@ model Task {
   id          Int              @id @default(autoincrement())
   title       String
   description String?
-  status      TaskStatus       @default(inprogress)
+  status      TaskStatus       @default(waiting)
   priority    PriorityLevel    @default(low)
   dueDate     DateTime?
   projectId   Int?
