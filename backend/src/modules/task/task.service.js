@@ -22,12 +22,11 @@ const getAll = async (queries) => {
   }
 }
 
-//TODO: response do not return
 const create = async (body, createdById) => {
   const { title, description, priority, dueDate, projectId, assignedUserId } = body;
 
   try {
-    await prisma.$transaction(async (prisma) => {
+    const result = await prisma.$transaction(async (prisma) => {
       const task = await prisma.task.create({
         data: { title, description, priority, dueDate, projectId, createdById }
       });
@@ -36,6 +35,16 @@ const create = async (body, createdById) => {
       });
       return task;
     });
+    return {
+      id: result.id,
+      title: result.title,
+      description: result.description,
+      status: result.status,
+      priority: result.priority,
+      dueDate: result.dueDate,
+      projectId: result.projectId,
+      assignedUserId: result.assignedUserId,
+    };
   } catch (error) {
     console.error(error);
   }

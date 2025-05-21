@@ -1,7 +1,7 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { authService } from "../services/authService";
 import { type InitialState } from "../types";
-import { AuthContext } from "@/context/authContext";
+import { useAuthProvider } from "@/context/authContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 export default function useLogin() {
   const navigate = useNavigate();
 
-  const { loading, setLoading, setAuthenticated } = useContext(AuthContext);
+  const { loading, setLoading, setAuthenticated } = useAuthProvider();
 
   const [formState, setFormState] = useState<InitialState>({
     email: '',

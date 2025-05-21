@@ -2,84 +2,14 @@ import FormDialog from "@/components/formDialog";
 import { DatePickerDemo } from "@/components/ui/date-picker";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { userService } from "@/features/user/services/userService";
-import type { User } from "@/features/user/types";
-import { useEffect, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { projectService } from "@/features/project/services/projectService";
-import type { Project } from "@/features/project/types";
-import { taskService } from "../services/taskService";
-import { toast } from "react-toastify";
-
-
-
-const FormSchema = z.object({
-  title: z.string({
-    required_error: "Zorunlu alan",
-  }),
-  description: z.string({
-    required_error: "Zorunlu alan",
-  }),
-  priority: z.enum(["low", "medium", "high", "critical"], {
-    required_error: "Zorunlu alan",
-  }),
-  dueDate: z.date({
-    required_error: "Zorunlu alan",
-  }),
-  projectId: z.string({
-    required_error: "Zorunlu alan",
-  }),
-  assignedUserId: z.string({
-    required_error: "Zorunlu alan",
-  })
-})
+import useCreateTask from "../hooks/useCreateTask";
 
 
 const CreateTask = () => {
-  const [loading, setLoading] = useState<boolean>(false)
-  const [users, setUser] = useState<User[]>([]);
-  const [projects, setProjects] = useState<Project[]>([]);
-
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema)
-  });
-
-  useEffect(() => {
-    const fetchProject = async () => {
-      const response = await projectService.getAll();
-      setProjects(response.data);
-    }
-
-    fetchProject();
-  }, [])
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await userService.getAll();
-      setUser(response.data);
-    }
-
-    fetchUsers();
-  }, []);
-
-  const handleSubmit = async (data: z.infer<typeof FormSchema>) => {
-    const formData = {
-      ...data, projectId: Number(data.projectId),
-    }
-
-    try {
-      const response = await taskService.create(formData);
-      toast.success(`${response.data.title} başarılı bir şekilde oluşturuldu`);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const { loading, users, projects, form, handleSubmit } = useCreateTask();
 
   return (
     <FormDialog title="Görev Ekle">
@@ -208,7 +138,7 @@ const CreateTask = () => {
           </div>
 
           <div className="flex justify-end mt-3">
-            <Button type="submit">Kaydet</Button>
+            <Button type="submit" disabled={loading}>Kaydet</Button>
           </div>
         </form>
       </Form>

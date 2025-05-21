@@ -32,7 +32,7 @@ const Aside = () => {
 
   return (
     <Accordion type="single" collapsible className="h-full">
-      <AccordionItem value="projects" className="">
+      <AccordionItem value="projects">
         <AccordionTrigger className="w-full rounded bg-gradient-to-r from-blue-600 to-blue-900 text-white relative p-2">
           <span>
             Projeler

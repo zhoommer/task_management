@@ -27,8 +27,10 @@ const create = async (req, res) => {
 
   const task = await taskService.create(req.body, createdById);
 
+  if (!task) {
+    res.status(404).json({ message: 'Task not found.' });
+  }
   return res.status(201).json({ message: 'Task succesfully created.', data: task });
-
 }
 
 const update = async (req, res) => {

@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-
 import { useSearchParams } from "react-router-dom";
-
 import { taskService } from "../services/taskService";
-
 import type { Task } from "../types";
 
 
 export default function useWaitingTask() {
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const [tasks, setTasks] = useState<Task[]>([]);

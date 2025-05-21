@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 import projectReducer from "./project/projectSlice";
 import dialogReducer from "./dialog/dialogSlice";
+import taskReducer from "./task/taskSlice";
 
 export const store = configureStore({
   reducer: {
     project: projectReducer,
+    task: taskReducer,
     dialog: dialogReducer,
   },
 });

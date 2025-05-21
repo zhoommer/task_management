@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 import { Loader } from 'lucide-react';
 
 type Props = {
@@ -36,4 +36,12 @@ const AuthProvider = ({ children }: Props) => {
   );
 };
 
-export { AuthContext, AuthProvider };
+const useAuthProvider = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuthProvider must be used within an AuthProvider");
+  }
+  return context;
+};
+
+export { AuthContext, AuthProvider, useAuthProvider };
