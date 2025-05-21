@@ -7,7 +7,6 @@ import type {
 
 // const BASE_URL = import.meta.env.BACKEND_BASE_URL;
 const LOCALSERVER: string = "http://localhost:3000/api/v1";
-const token = localStorage.getItem("token");
 
 const axiosClient: AxiosInstance = axios.create({
   // baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -20,6 +19,7 @@ const axiosClient: AxiosInstance = axios.create({
 // Request Interceptor
 axiosClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    const token = localStorage.getItem("token");
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }

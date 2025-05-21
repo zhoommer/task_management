@@ -34,7 +34,7 @@ const DoneTask = () => {
 
   return (
     <div
-      className="rounded-xl bg-gradient-to-b from-sky-200 to-green-200 p-3"
+      className="rounded-xl bg-gradient-to-b from-sky-200 to-green-200 p-3 overflow-y-scroll"
     >
       <div className="rounded-lg p-2 bg-gradient-to-r from-sky-500 to-green-500 flex items-center justify-center gap-2">
         <h3 className="text-zinc-200">Biten</h3>

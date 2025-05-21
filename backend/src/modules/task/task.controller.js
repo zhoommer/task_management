@@ -12,7 +12,6 @@ const getAll = async (req, res) => {
 }
 
 const create = async (req, res) => {
-  if (!STATUS.includes(req.body.status)) return res.status(400).json({ message: 'Status must be waiting, inprogress, test, done.' });
 
   if (!PRIORITY.includes(req.body.priority)) return res.status(400).json({ message: 'Priority must be low, medium, high, critical.' });
 
@@ -26,9 +25,9 @@ const create = async (req, res) => {
 
   if (!createdById) return res.status(400).json({ message: 'Creator id is required.' });
 
-  const createdTask = await taskService.create(req.body, createdById);
+  const task = await taskService.create(req.body, createdById);
 
-  return res.status(201).json({ messasge: 'Task succesfully created.', data: createdTask });
+  return res.status(201).json({ message: 'Task succesfully created.', data: task });
 
 }
 

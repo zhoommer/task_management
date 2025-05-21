@@ -1,5 +1,5 @@
 import axiosClient from "@/api/axiosClient";
-import type { Response } from "../types";
+import type { CreateTaskBody, CreateTaskResponse, Response } from "../types";
 
 
 export const taskService = {
@@ -7,6 +7,11 @@ export const taskService = {
     const response = await axiosClient.get<Response>(`/task?projectId=${projectId}&status=${status}`);
     return response.data;
   },
+
+  async create(formData: CreateTaskBody): Promise<{ message: string; data: CreateTaskResponse }> {
+    const response = await axiosClient.post<{ message: string; data: CreateTaskResponse }>('/task', formData);
+    return response.data;
+  }
 }
 
 

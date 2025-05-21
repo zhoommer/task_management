@@ -22,21 +22,20 @@ const getAll = async (queries) => {
   }
 }
 
+//TODO: response do not return
 const create = async (body, createdById) => {
   const { title, description, priority, dueDate, projectId, assignedUserId } = body;
 
   try {
-    const result = await prisma.$transaction(async (prisma) => {
+    await prisma.$transaction(async (prisma) => {
       const task = await prisma.task.create({
         data: { title, description, priority, dueDate, projectId, createdById }
       });
-      const taskAssignment = await prisma.taskAssignment.create({
+      await prisma.taskAssignment.create({
         data: { taskId: task.id, userId: assignedUserId }
       });
-      return { task, taskAssignment };
+      return task;
     });
-    return result;
-
   } catch (error) {
     console.error(error);
   }

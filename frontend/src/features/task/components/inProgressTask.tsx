@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import TaskCard from "./taskCard";
 import useInProgressTask from "../hooks/useInProgressTask";
 import Loading from "@/components/ui/loading";
-import { motion, AnimatePresence } from "framer-motion";
 import AnimatedDiv from "@/components/animatedDiv";
 
 const InProgressTask = () => {
@@ -35,7 +33,7 @@ const InProgressTask = () => {
   if (loading) return <Loading />
 
   return (
-    <div className="rounded-xl bg-gradient-to-b from-yellow-200 to-orange-200 p-3">
+    <div className="rounded-xl bg-gradient-to-b from-yellow-200 to-orange-200 p-3 overflow-y-scroll">
       <div className="rounded-lg p-2 bg-gradient-to-r from-yellow-500 to-orange-600 flex items-center justify-center gap-2">
         <h3 className="text-zinc-200">Devam Eden</h3>
         <span className="bg-purple-300 rounded-full w-5 h-5 p-2 text-xs text-zinc-900 flex justify-center items-center">{tasks ? tasks.length : 0}</span>
