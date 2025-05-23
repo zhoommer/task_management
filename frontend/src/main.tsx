@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { ToastContainer, Bounce } from 'react-toastify';
 import { Provider } from 'react-redux'
 import { store } from './features/store.ts'
+import { AuthProvider } from './context/authContext.tsx'
 
 createRoot
   (document.getElementById('root')!).render(
@@ -18,8 +19,10 @@ createRoot
             hideProgressBar={false}
             transition={Bounce}
           />
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </BrowserRouter>
       </Provider>
-    </StrictMode>,
+    </StrictMode>
   )

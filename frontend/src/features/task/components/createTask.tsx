@@ -49,7 +49,9 @@ const CreateTask = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Başlık</FormLabel>
-                    <Input onChange={field.onChange} placeholder="Başlık giriniz" />
+                    <FormControl>
+                      <Input onChange={field.onChange} placeholder="Başlık giriniz" />
+                    </FormControl>
                   </FormItem>
                 )}
               />

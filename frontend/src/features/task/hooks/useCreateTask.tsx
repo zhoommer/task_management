@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import type { User } from "@/features/user/types";
-import type { Project } from "@/features/project/types";
 import { z } from "zod"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,16 +7,18 @@ import { taskService } from "../services/taskService";
 import { projectService } from "@/features/project/services/projectService";
 import { userService } from "@/features/user/services/userService";
 import { toast } from "react-toastify";
-import { useAppDispatch } from "@/features/store";
+import { useAppDispatch, useAppSelector } from "@/features/store";
 import { closeDialog } from "@/features/dialog/dialogSlice";
+import { setProjects } from "@/features/project/projectSlice";
 
 
 export default function useCreateTask() {
   const dispatch = useAppDispatch();
+  const { projects } = useAppSelector((state) => state.project);
   const [loading, setLoading] = useState<boolean>(false)
   const [users, setUser] = useState<User[]>([]);
-  const [projects, setProjects] = useState<Project[]>([]); const FormSchema = z.object({
 
+  const FormSchema = z.object({
     title: z.string({
       required_error: "Zorunlu alan",
     }),
@@ -39,28 +40,30 @@ export default function useCreateTask() {
   });
 
 
-
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema)
   });
 
   useEffect(() => {
-    const fetchProject = async () => {
-      const response = await projectService.getAll();
-      setProjects(response.data);
+    if (!projects) {
+      const fetchProject = async () => {
+        const response = await projectService.getAll();
+        dispatch(setProjects(response.data));
+      }
+      fetchProject();
     }
-
-    fetchProject();
-  }, [])
+  }, [projects, dispatch])
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await userService.getAll();
-      setUser(response.data);
-    }
+    if (!users) {
+      const fetchUsers = async () => {
+        const response = await userService.getAll();
+        setUser(response.data);
+      }
 
-    fetchUsers();
-  }, []);
+      fetchUsers();
+    }
+  }, [dispatch, users]);
 
   const handleSubmit = async (data: z.infer<typeof FormSchema>) => {
     const formData = {
@@ -74,6 +77,7 @@ export default function useCreateTask() {
       dispatch(closeDialog());
     } catch (error) {
       console.log(error);
+      toast.error(`Bir hata oluştu: ${error}`,)
     } finally {
       setLoading(false);
     }

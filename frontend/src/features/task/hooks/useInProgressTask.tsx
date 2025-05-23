@@ -12,6 +12,31 @@ export default function useInProgressTask() {
 
   const projectId = searchParams.get('projectId') || '';
 
+  const [taskList, setTaskList] = useState(tasks || []);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    setTaskList(tasks || [])
+  }, [tasks])
+
+  const handleDragStart = (index: number) => {
+    setDraggedIndex(index);
+  }
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    e.preventDefault();
+    if (draggedIndex === null || draggedIndex === index) return;
+    const updatedList = [...taskList];
+    const [removed] = updatedList.splice(draggedIndex, 1);
+    updatedList.splice(index, 0, removed);
+    setDraggedIndex(index);
+    setTaskList(updatedList);
+  };
+
+  const handleDrop = () => {
+    setDraggedIndex(null);
+    // Optionally: persist new order here
+  };
 
   useEffect(() => {
     const fetchInProgressTasks = async () => {
@@ -33,6 +58,9 @@ export default function useInProgressTask() {
 
   return {
     loading,
-    tasks
+    taskList,
+    handleDragStart,
+    handleDragOver,
+    handleDrop,
   }
 }

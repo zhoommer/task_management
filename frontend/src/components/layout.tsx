@@ -16,11 +16,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </nav>
 
       <div className="flex">
-        <aside className="flex flex-col w-[200px] py-3 mt-2">
+        <aside className="hidden lg:flex flex-col w-[200px] p-3 mt-2 bg-zinc-50 rounded-xl h-[90vh]">
           <Aside />
 
           <Dialog>
-            <DialogTrigger className="flex bg-blue-400 hover:bg-blue-500 text-white justify-center items-center gap-2 py-1 rounded-lg">
+            <DialogTrigger className="flex justify-center items-center bg-blue-300 hover:bg-blue-400 text-white gap-2 py-1 rounded-lg">
               Proje Ekle
               <PlusIcon />
             </DialogTrigger>

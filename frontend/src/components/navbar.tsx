@@ -30,13 +30,13 @@ const Navbar = () => {
       </div>
       <div>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger asChild className='cursor-pointer'>
             <Avatar className='drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]'>
               <AvatarFallback>{firstChar + lastChar}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel className=''>Ayarlar</DropdownMenuLabel>
+            <DropdownMenuLabel className='text-center'>Menü</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Button variant='link' className='w-full shadow-sm hover:bg-zinc-100'>
               <Link to={'#'} className='w-full flex justify-center items-center gap-2'>

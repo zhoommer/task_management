@@ -2,22 +2,14 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import type { Task } from "../types";
 import useTaskCard from "../hooks/useTaskCard";
-import type { DragEvent } from "react";
 
 
 const TaskCard = ({ task }: { task: Task }) => {
   const { priorityLevel, cardGradient } = useTaskCard();
 
-  const dragCard = (event: DragEvent) => {
-    console.log(event.screenX);
-  }
-
-
   return (
     <Card
-      className={`bg-gradient-to-r ${cardGradient(task.status)} opacity-50 rounded p-3 mt-2 hover:opacity-100 transition-all cursor-pointer`}
-      draggable
-      onDragStart={dragCard}
+      className={`bg-gradient-to-r ${cardGradient(task.status)} opacity-70 rounded p-3 mt-2 hover:opacity-100 transition-all cursor-pointer`}
     >
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
@@ -31,7 +23,7 @@ const TaskCard = ({ task }: { task: Task }) => {
         <CardDescription>{task.description}</CardDescription>
       </CardHeader>
       <CardContent className="flex justify-between items-center">
-        <span>
+        <span className="text-sm font-medium">
           {task.createdAt.split("T")[0] + ' / ' + task.createdAt.split('T')[1].split(".")[0]}
         </span>
         {priorityLevel(task.priority)}
