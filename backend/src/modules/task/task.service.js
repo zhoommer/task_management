@@ -4,13 +4,13 @@ const prisma = new PrismaClient();
 
 const getAll = async (queries) => {
 
-  const { status, user } = queries;
+  const { status, userId } = queries;
 
-  const project = Number(queries.projectId);
+  const projectId = Number(queries.projectId);
 
   const where = {
-    ...(user && { assignments: { some: { user } } }),
-    ...(project && { project }),
+    ...(userId && { assignments: { some: { userId } } }),
+    ...(projectId && { projectId }),
     ...(status && { status }),
   };
 
