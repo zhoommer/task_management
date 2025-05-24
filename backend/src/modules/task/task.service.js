@@ -4,13 +4,19 @@ const prisma = new PrismaClient();
 
 const getAll = async (queries) => {
 
-  const { status } = queries;
+  const { status, userId } = queries;
 
   const projectId = Number(queries.projectId);
 
+  const where = {
+    ...(userId && { assignments: { some: { userId } } }),
+    ...(projectId && { projectId }),
+    ...(status && { status }),
+  };
+
   try {
     const allTasks = await prisma.task.findMany({
-      where: projectId || status ? { ...(projectId && { projectId }), ...(status && { status }) } : {},
+      where,
       include: {
         createdBy: { select: { id: true, name: true, createdAt: true } },
         assignments: { select: { user: { select: { name: true } } } },

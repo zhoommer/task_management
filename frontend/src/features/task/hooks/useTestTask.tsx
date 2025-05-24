@@ -12,6 +12,7 @@ export default function useTestTask() {
   const [searchParams] = useSearchParams();
 
   const projectId = searchParams.get('projectId') || '';
+  const userId = searchParams.get('userId') || '';
 
   const [taskList, setTaskList] = useState(tasks || []);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
@@ -43,7 +44,7 @@ export default function useTestTask() {
     const fetchTestTasks = async () => {
       try {
         setLoading(true);
-        const response = await taskService.getAll(projectId, 'test');
+        const response = await taskService.getAll(userId, projectId, 'test');
         setTasks(response.data);
       } catch (error) {
         console.log(error)
@@ -53,7 +54,7 @@ export default function useTestTask() {
     }
 
     fetchTestTasks();
-  }, [projectId])
+  }, [userId, projectId])
 
   return {
     loading,

@@ -10,15 +10,15 @@ const LoginPage = () => {
   const { loading, handleChange, handleSubmit } = useLogin();
   return (
     <form onSubmit={handleSubmit}>
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-zinc-900 to-black flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-zinc-100 to-stone-400 flex items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeInOut' }}
-          className="w-full max-w-md bg-white/10 backdrop-blur-md rounded-xl shadow-2xl border border-white/10 p-6 space-y-8"
+          className="w-full max-w-md bg-zinc-200/10 backdrop-blur-md rounded-xl shadow-2xl border border-white/10 p-6 space-y-8"
         >
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-white tracking-tight">
+            <h2 className="text-3xl font-bold link-btn-gradient bg-clip-text text-transparent tracking-tight">
               TaskMaster
             </h2>
             <p className="text-gray-400 text-xs">Tekrar hoşgeldiniz! Görevlerinizi yönetmek için giriş yapınız.</p>
@@ -26,7 +26,7 @@ const LoginPage = () => {
 
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-gray-300 flex items-center">
+              <Label htmlFor="email" className="text-gray-400 flex items-center">
                 <User className="w-4 h-4 mr-2" />
                 Email
               </Label>
@@ -35,12 +35,12 @@ const LoginPage = () => {
                 name="email"
                 type="email"
                 placeholder="Enter your email"
-                className="bg-black/20 text-white border-zinc-500/30 placeholder:text-gray-500 focus:ring-zinc-500 focus:border-zinc-500"
+                className="bg-zinc-400/20 text-zinc-500 border-zinc-500/30 placeholder:text-gray-500 focus:ring-zinc-300 focust:border-zinc-300"
                 onChange={handleChange}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-gray-300 flex items-center">
+              <Label htmlFor="password" className="text-gray-400 flex items-center">
                 <Lock className="w-4 h-4 mr-2" />
                 Parola
               </Label>
@@ -49,7 +49,7 @@ const LoginPage = () => {
                 name='passwordHash'
                 type="password"
                 placeholder="Enter your password"
-                className="bg-black/20 text-white border-zinc-500/30 placeholder:text-gray-500 focus:ring-zinc-500 focus:border-zinc-500"
+                className="bg-zinc-400/20 text-zinc-500 border-zinc-500/30 placeholder:text-gray-500 focus:ring-zinc-300 focust:border-zinc-300"
                 onChange={handleChange}
               />
             </div>

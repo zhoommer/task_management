@@ -11,6 +11,7 @@ export default function useInProgressTask() {
   const [searchParams] = useSearchParams();
 
   const projectId = searchParams.get('projectId') || '';
+  const userId = searchParams.get('userId') || '';
 
   const [taskList, setTaskList] = useState(tasks || []);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
@@ -42,7 +43,7 @@ export default function useInProgressTask() {
     const fetchInProgressTasks = async () => {
       try {
         setLoading(true);
-        const response = await taskService.getAll(projectId, 'inprogress');
+        const response = await taskService.getAll(userId, projectId, 'inprogress');
         setTasks(response.data);
       } catch (error) {
         console.log(error);
@@ -52,7 +53,7 @@ export default function useInProgressTask() {
     }
     fetchInProgressTasks();
 
-  }, [projectId]);
+  }, [userId, projectId]);
 
 
 

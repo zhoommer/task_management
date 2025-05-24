@@ -3,8 +3,8 @@ import type { CreateTaskBody, CreateTaskResponse, Response } from "../types";
 
 
 export const taskService = {
-  async getAll(projectId?: string, status?: 'waiting' | 'inprogress' | 'test' | 'done'): Promise<Response> {
-    const response = await axiosClient.get<Response>(`/task?projectId=${projectId}&status=${status}`);
+  async getAll(userId?: string, projectId?: string, status?: 'waiting' | 'inprogress' | 'test' | 'done'): Promise<Response> {
+    const response = await axiosClient.get<Response>(`/task?userId=${userId}&projectId=${projectId}&status=${status}`);
     return response.data;
   },
 

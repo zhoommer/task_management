@@ -12,6 +12,7 @@ export default function useDoneTask() {
   const [searchParams] = useSearchParams();
 
   const projectId = searchParams.get('projectId') || '';
+  const userId = searchParams.get('userId') || '';
 
   const [taskList, setTaskList] = useState(tasks || []);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
@@ -42,7 +43,7 @@ export default function useDoneTask() {
     const fetchDonesTasks = async () => {
       try {
         setLoading(true);
-        const response = await taskService.getAll(projectId, 'done');
+        const response = await taskService.getAll(userId, projectId, 'done');
         setTasks(response.data);
       } catch (error) {
         console.log(error);
@@ -52,7 +53,7 @@ export default function useDoneTask() {
     };
 
     fetchDonesTasks();
-  }, [projectId]);
+  }, [userId, projectId]);
 
   return {
     loading,

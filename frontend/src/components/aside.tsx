@@ -1,7 +1,6 @@
 import { projectService } from "@/features/project/services/projectService";
 import { userService } from "@/features/user/services/userService";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Accordion, AccordionItem } from "./ui/accordion";
 import { AccordionContent, AccordionTrigger } from "@radix-ui/react-accordion";
 import { useSearchParams } from "react-router-dom";
@@ -14,13 +13,19 @@ const Aside = () => {
   const dispatch = useAppDispatch();
   const { projects } = useAppSelector((state) => state.project);
   const { users } = useAppSelector((state) => state.user);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const projectId = searchParams.get('projectId') || '';
 
   const activeLink = (id: number): boolean => {
     if (Number(projectId) === id) return true;
     return false;
+  }
+
+  const handleClick = (key: 'userId' | 'projectId' | 'status', value: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set(key, value);
+    setSearchParams(Object.fromEntries(params.entries()));
   }
 
   useEffect(() => {
@@ -52,11 +57,12 @@ const Aside = () => {
         <AccordionContent className="flex flex-col">
           {
             projects.map((project, index) => (
-              <Link to={{ pathname: '', search: `?projectId=${project.id}` }} key={index}
+              <button key={index}
+                onClick={() => handleClick('projectId', String(project.id))}
                 className={`text-sm p-2 shadow-sm ${activeLink(project.id) ? 'bg-blue-400 text-white' : ''} transition-all`}
               >
                 {project.name}
-              </Link>
+              </button>
             ))
           }
         </AccordionContent>
@@ -72,7 +78,7 @@ const Aside = () => {
         <AccordionContent className="flex flex-col">
           {
             users.map((user, index) => (
-              <Link key={index} to={'#'} className="text-sm p-2 shadow-sm">{user.name}</Link>
+              <button key={index} onClick={() => handleClick('userId', user.id)} className="text-sm p-2 shadow-sm">{user.name}</button>
             ))
           }
         </AccordionContent>
