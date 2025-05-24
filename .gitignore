@@ -88,3 +88,4 @@ logs
 turbo/
 nx-cache/
 
+backend/prisma/migrations/
