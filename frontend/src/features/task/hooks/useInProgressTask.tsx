@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { taskService } from "../services/taskService";
-import type { Task } from "../types";
+import { useAppDispatch, useAppSelector } from "@/features/store";
+import { setInProgressTasks } from "../taskSlice";
 
 export default function useInProgressTask() {
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState<boolean>(false);
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { inProgressTasks } = useAppSelector((state) => state.task);
   const [searchParams] = useSearchParams();
 
   const project = searchParams.get('project') || '';
   const user = searchParams.get('user') || '';
 
-  const [taskList, setTaskList] = useState(tasks || []);
+  const [taskList, setTaskList] = useState(inProgressTasks || []);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    setTaskList(tasks || [])
-  }, [tasks])
+    setTaskList(inProgressTasks || [])
+  }, [inProgressTasks])
 
   const handleDragStart = (index: number) => {
     setDraggedIndex(index);
@@ -42,7 +44,7 @@ export default function useInProgressTask() {
       try {
         setLoading(true);
         const response = await taskService.getAll(user, project, 'inprogress');
-        setTasks(response.data);
+        dispatch(setInProgressTasks(response.data));
       } catch (error) {
         console.log(error);
       } finally {

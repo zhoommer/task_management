@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { taskService } from "../services/taskService";
-import type { Task } from "../types";
+import { useAppDispatch, useAppSelector } from "@/features/store";
+import { setTestTasks } from "../taskSlice";
 
 
 export default function useTestTask() {
+  const dispatch = useAppDispatch();
+
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { testTasks } = useAppSelector((state) => state.task);
 
   const [searchParams] = useSearchParams();
 
   const project = searchParams.get('project') || '';
   const user = searchParams.get('user') || '';
 
-  const [taskList, setTaskList] = useState(tasks || []);
+  const [taskList, setTaskList] = useState(testTasks || []);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    setTaskList(tasks || [])
-  }, [tasks])
+    setTaskList(testTasks || [])
+  }, [testTasks])
 
   const handleDragStart = (index: number) => {
     setDraggedIndex(index);
@@ -45,7 +48,7 @@ export default function useTestTask() {
       try {
         setLoading(true);
         const response = await taskService.getAll(user, project, 'test');
-        setTasks(response.data);
+        dispatch(setTestTasks(response.data));
       } catch (error) {
         console.log(error)
       } finally {

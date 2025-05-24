@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { taskService } from "../services/taskService";
-import type { Task } from "../types";
+import { useAppDispatch, useAppSelector } from "@/features/store";
+import { setDoneTasks } from "../taskSlice";
 
 
 export default function useDoneTask() {
+  const dispatch = useAppDispatch();
+
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { doneTasks } = useAppSelector((state) => state.task);
 
   const [searchParams] = useSearchParams();
 
   const project = searchParams.get('project') || '';
   const user = searchParams.get('user') || '';
 
-  const [taskList, setTaskList] = useState(tasks || []);
+  const [taskList, setTaskList] = useState(doneTasks || []);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    setTaskList(tasks || [])
-  }, [tasks])
+    setTaskList(doneTasks || [])
+  }, [doneTasks])
 
   const handleDragStart = (index: number) => {
     setDraggedIndex(index);
@@ -40,11 +43,11 @@ export default function useDoneTask() {
   };
 
   useEffect(() => {
-    const fetchDonesTasks = async () => {
+    const fetchDoneTasks = async () => {
       try {
         setLoading(true);
         const response = await taskService.getAll(user, project, 'done');
-        setTasks(response.data);
+        dispatch(setDoneTasks(response.data));
       } catch (error) {
         console.log(error);
       } finally {
@@ -52,7 +55,7 @@ export default function useDoneTask() {
       }
     };
 
-    fetchDonesTasks();
+    fetchDoneTasks();
   }, [user, project]);
 
   return {

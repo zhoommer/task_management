@@ -1,5 +1,5 @@
 import axiosClient from "@/api/axiosClient";
-import type { CreateTaskBody, CreateTaskResponse, Response } from "../types";
+import type { CreateTaskBody, CreateTaskResponse, Response, Task } from "../types";
 
 
 export const taskService = {
@@ -10,6 +10,11 @@ export const taskService = {
 
   async create(formData: CreateTaskBody): Promise<{ message: string; data: CreateTaskResponse }> {
     const response = await axiosClient.post<{ message: string; data: CreateTaskResponse }>('/task', formData);
+    return response.data;
+  },
+
+  async delete(id: number): Promise<Task> {
+    const response = await axiosClient.delete<Task>(`/task/${id}`);
     return response.data;
   }
 }

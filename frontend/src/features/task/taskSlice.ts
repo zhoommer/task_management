@@ -4,12 +4,18 @@ import type { Task } from "./types";
 
 type InitialState = {
   loading: boolean;
-  tasks: Task[];
+  waitingTasks: Task[];
+  inProgressTasks: Task[];
+  testTasks: Task[];
+  doneTasks: Task[];
 }
 
 const initialState: InitialState = {
   loading: false,
-  tasks: [],
+  waitingTasks: [],
+  inProgressTasks: [],
+  testTasks: [],
+  doneTasks: [],
 }
 
 export const taskSlice = createSlice({
@@ -19,15 +25,35 @@ export const taskSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
-    setTasks: (state, action: PayloadAction<Task[]>) => {
-      state.tasks = action.payload;
+    setWaitingTask: (state, action: PayloadAction<Task[]>) => {
+      state.waitingTasks = action.payload;
     },
-    addTask: (state, action: PayloadAction<Task>) => {
-      state.tasks.push(action.payload);
+    setInProgressTasks: (state, action: PayloadAction<Task[]>) => {
+      state.inProgressTasks = action.payload;
+    },
+    setTestTasks: (state, action: PayloadAction<Task[]>) => {
+      state.testTasks = action.payload;
+    },
+    setDoneTasks: (state, action: PayloadAction<Task[]>) => {
+      state.doneTasks = action.payload;
+    },
+    removeTask: (state, action: PayloadAction<{ taskId: number; status: "waiting" | "inprogress" | "test" | "done" }>) => {
+      if (action.payload.status === 'waiting') {
+        state.waitingTasks.filter((task) => task.id !== action.payload.taskId);
+      }
+      if (action.payload.status === 'inprogress') {
+        state.inProgressTasks.filter((task) => task.id !== action.payload.taskId);
+      }
+      if (action.payload.status === 'test') {
+        state.testTasks.filter((task) => task.id !== action.payload.taskId);
+      }
+      if (action.payload.status === 'done') {
+        state.doneTasks.filter((state) => state.id !== action.payload.taskId);
+      }
     }
   },
 })
 
 
 export default taskSlice.reducer;
-export const { setLoading, setTasks, addTask } = taskSlice.actions;
+export const { setLoading, setWaitingTask, setInProgressTasks, setTestTasks, setDoneTasks, removeTask } = taskSlice.actions;

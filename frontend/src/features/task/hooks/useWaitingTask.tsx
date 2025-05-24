@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { taskService } from "../services/taskService";
-import type { Task } from "../types";
+import { useAppDispatch, useAppSelector } from "@/features/store";
+import { setWaitingTask } from "../taskSlice";
 
 
 export default function useWaitingTask() {
+  const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { waitingTasks } = useAppSelector((state) => state.task);
 
   const [searchParams] = useSearchParams();
 
@@ -16,14 +18,14 @@ export default function useWaitingTask() {
 
   const user = searchParams.get('user') || '';
 
-  const [taskList, setTaskList] = useState(tasks || []);
+  const [taskList, setTaskList] = useState(waitingTasks || []);
 
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
 
 
   useEffect(() => {
-    setTaskList(tasks || [])
-  }, [tasks])
+    setTaskList(waitingTasks || [])
+  }, [waitingTasks])
 
   const handleDragStart = (index: number) => {
     setDraggedIndex(index);
@@ -49,7 +51,7 @@ export default function useWaitingTask() {
       try {
         setLoading(true);
         const response = await taskService.getAll(user, project, 'waiting');
-        setTasks(response.data);
+        dispatch(setWaitingTask(response.data));
       } catch (error) {
         console.log(error);
       } finally {
