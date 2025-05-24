@@ -12,9 +12,9 @@ export default function useWaitingTask() {
 
   const [searchParams] = useSearchParams();
 
-  const projectId = searchParams.get('projectId') || '';
+  const project = searchParams.get('project') || '';
 
-  const userId = searchParams.get('userId') || '';
+  const user = searchParams.get('user') || '';
 
   const [taskList, setTaskList] = useState(tasks || []);
 
@@ -48,7 +48,7 @@ export default function useWaitingTask() {
     const fetchWaitingTasks = async () => {
       try {
         setLoading(true);
-        const response = await taskService.getAll(userId, projectId, 'waiting');
+        const response = await taskService.getAll(user, project, 'waiting');
         setTasks(response.data);
       } catch (error) {
         console.log(error);
@@ -57,7 +57,7 @@ export default function useWaitingTask() {
       }
     }
     fetchWaitingTasks();
-  }, [userId, projectId])
+  }, [user, project])
 
   return {
     loading,

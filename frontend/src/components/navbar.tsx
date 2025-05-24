@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <div className="flex justify-around items-center border-b border-b-zinc-300 bg-gradient-to-r from-zinc-100 to-gray-100 py-5">
       <div>
-        <Link to={'/'} className="link-btn-gradient bg-clip-text text-transparent text-3xl font-bold transition duration-300 hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]">Task Master</Link>
+        <Link to={'/?user=&project='} className="link-btn-gradient bg-clip-text text-transparent text-3xl font-bold transition duration-300 hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]">Task Master</Link>
       </div>
       <div>
         <DropdownMenu>

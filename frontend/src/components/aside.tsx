@@ -15,14 +15,21 @@ const Aside = () => {
   const { users } = useAppSelector((state) => state.user);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const projectId = searchParams.get('projectId') || '';
+  const project = searchParams.get('project') || '';
 
-  const activeLink = (id: number): boolean => {
-    if (Number(projectId) === id) return true;
+  const user = searchParams.get('user') || '';
+
+  const activeProject = (id: number): boolean => {
+    if (Number(project) === id) return true;
     return false;
   }
 
-  const handleClick = (key: 'userId' | 'projectId' | 'status', value: string) => {
+  const activeUser = (id: string): boolean => {
+    if (user === id) return true;
+    return false
+  }
+
+  const handleClick = (key: 'user' | 'project' | 'status', value: string) => {
     const params = new URLSearchParams(searchParams);
     params.set(key, value);
     setSearchParams(Object.fromEntries(params.entries()));
@@ -52,14 +59,20 @@ const Aside = () => {
           <span>
             Projeler
           </span>
-          <span className="absolute top-1 right-1 bg-blue-500 text-white w-5 h-5 rounded-full text-xs">{projects.length}</span>
+          <span className="absolute top-1 right-1 bg-blue-500 text-white w-5 h-5 p-2 flex justify-center items-center rounded-full" style={{ fontSize: '10px' }}>{projects.length}</span>
         </AccordionTrigger>
         <AccordionContent className="flex flex-col">
+          <button
+            onClick={() => handleClick('project', '')}
+            className={`text-sm p-2 shadow-sm ${activeProject(Number('')) ? 'bg-blue-400 text-white' : ''} transition-all`}
+          >
+            Hepsi
+          </button>
           {
             projects.map((project, index) => (
               <button key={index}
-                onClick={() => handleClick('projectId', String(project.id))}
-                className={`text-sm p-2 shadow-sm ${activeLink(project.id) ? 'bg-blue-400 text-white' : ''} transition-all`}
+                onClick={() => handleClick('project', String(project.id))}
+                className={`text-sm p-2 shadow-sm ${activeProject(project.id) ? 'bg-blue-400 text-white' : ''} transition-all`}
               >
                 {project.name}
               </button>
@@ -73,12 +86,21 @@ const Aside = () => {
           <span>
             Kullanıcılar
           </span>
-          <span className="absolute top-1 right-1 bg-blue-500 text-white w-5 h-5 rounded-full text-xs">{users.length}</span>
+          <span className="absolute top-1 right-1 bg-blue-500 text-white w-5 h-5 p-2 flex justify-center items-center rounded-full" style={{ fontSize: '10px' }}>{users.length}</span>
         </AccordionTrigger>
         <AccordionContent className="flex flex-col">
+          <button
+            onClick={() => handleClick('user', '')}
+            className={`text-sm p-2 shadow-sm ${activeUser('') ? 'bg-blue-400 text-white' : ''} transition-all`}
+          >
+            Hepsi
+          </button>
           {
             users.map((user, index) => (
-              <button key={index} onClick={() => handleClick('userId', user.id)} className="text-sm p-2 shadow-sm">{user.name}</button>
+              <button key={index} onClick={() => handleClick('user', user.id)}
+                className={`text-sm p-2 shadow-sm ${activeUser(user.id) ? 'bg-blue-400 text-white' : ''} transition-all`}>
+                {user.name}
+              </button>
             ))
           }
         </AccordionContent>

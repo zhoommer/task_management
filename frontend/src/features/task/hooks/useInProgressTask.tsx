@@ -3,15 +3,13 @@ import { useSearchParams } from "react-router-dom";
 import { taskService } from "../services/taskService";
 import type { Task } from "../types";
 
-
-
 export default function useInProgressTask() {
   const [loading, setLoading] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [searchParams] = useSearchParams();
 
-  const projectId = searchParams.get('projectId') || '';
-  const userId = searchParams.get('userId') || '';
+  const project = searchParams.get('project') || '';
+  const user = searchParams.get('user') || '';
 
   const [taskList, setTaskList] = useState(tasks || []);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
@@ -43,7 +41,7 @@ export default function useInProgressTask() {
     const fetchInProgressTasks = async () => {
       try {
         setLoading(true);
-        const response = await taskService.getAll(userId, projectId, 'inprogress');
+        const response = await taskService.getAll(user, project, 'inprogress');
         setTasks(response.data);
       } catch (error) {
         console.log(error);
@@ -53,7 +51,7 @@ export default function useInProgressTask() {
     }
     fetchInProgressTasks();
 
-  }, [userId, projectId]);
+  }, [user, project]);
 
 
 
