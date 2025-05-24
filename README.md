@@ -7,12 +7,16 @@ Simple task manager for business.
 
 ### Gereksinimler
 - Backend
-  - Oncelikle bir .env dosyasi olusturun.
+  - Kok dizinde .env dosyasi olusturun. `touch .env`
   - PUBLIC_NODE_DATABASE_URL=[postgreSQLDBURL]
   - PUBLIC_NODE_PORT_NUMBER=[PORTNUMBER]
   - PUBLIC_NODE_JWT_SECRET_KEY=[JWT SECRET KEY]
 
-- JWT Key olusturmak icin: `openssl rand -hex 32`
-- `npm install`
-- `npx prisma migrate dev`
-- `npm run start`
+  - JWT Key olusturmak icin: `openssl rand -hex 32`
+  - `npm install`
+  - `npx prisma migrate dev`
+  - `npm run start`
+- Frontend
+  - `npm install`
+  - `npm run dev`
+
