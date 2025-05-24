@@ -1,7 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Task } from "./types";
 
-
 type InitialState = {
   loading: boolean;
   waitingTasks: Task[];
@@ -39,21 +38,20 @@ export const taskSlice = createSlice({
     },
     removeTask: (state, action: PayloadAction<{ taskId: number; status: "waiting" | "inprogress" | "test" | "done" }>) => {
       if (action.payload.status === 'waiting') {
-        state.waitingTasks.filter((task) => task.id !== action.payload.taskId);
+        state.waitingTasks = state.waitingTasks.filter((task) => task.id !== action.payload.taskId);
       }
       if (action.payload.status === 'inprogress') {
-        state.inProgressTasks.filter((task) => task.id !== action.payload.taskId);
+        state.inProgressTasks = state.inProgressTasks.filter((task) => task.id !== action.payload.taskId);
       }
       if (action.payload.status === 'test') {
-        state.testTasks.filter((task) => task.id !== action.payload.taskId);
+        state.testTasks = state.testTasks.filter((task) => task.id !== action.payload.taskId);
       }
       if (action.payload.status === 'done') {
-        state.doneTasks.filter((state) => state.id !== action.payload.taskId);
+        state.doneTasks = state.doneTasks.filter((task) => task.id !== action.payload.taskId);
       }
     }
   },
 })
-
 
 export default taskSlice.reducer;
 export const { setLoading, setWaitingTask, setInProgressTasks, setTestTasks, setDoneTasks, removeTask } = taskSlice.actions;

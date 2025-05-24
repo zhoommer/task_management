@@ -39,7 +39,7 @@ export default function useLogin() {
 
       toast.success('Tekrar hoşgeldiniz.');
 
-      navigate('/');
+      navigate('/?user=&project=');
 
     } catch (error) {
       console.log(error);

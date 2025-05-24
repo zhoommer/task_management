@@ -1,6 +1,7 @@
+import React, { useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import TaskCard from "@/features/task/components/taskCard";
 import type { Task } from "@/features/task/types";
-import { motion, AnimatePresence } from "framer-motion";
 
 type AnimatedDivProps = {
   taskList: Task[];
@@ -10,27 +11,46 @@ type AnimatedDivProps = {
 }
 
 
+const TRANSITION = { type: "spring", stiffness: 500, damping: 30 };
+const INITIAL = { scale: 0.95, opacity: 0.7 };
+const ANIMATE = { scale: 1, opacity: 1 };
+const EXIT = { scale: 0.95, opacity: 0.7 };
+const STYLE = { cursor: "grab" };
+
+const MemoizedTaskCard = React.memo(TaskCard);
+
 const AnimatedDiv = ({ taskList, onDragStart, onDragOver, onDrop }: AnimatedDivProps) => {
+
+  const handleDragStart = useCallback(
+    (index: number) => () => onDragStart(index),
+    [onDragStart]
+  );
+  const handleDragOver = useCallback(
+    (index: number) => (e) => onDragOver(e, index),
+    [onDragOver]
+  );
+
   return (
     <AnimatePresence>
       {taskList?.map((task, index) => (
         <motion.div
-          key={task.id ?? index}
+          key={task.id}
           layout
-          initial={{ scale: 0.95, opacity: 0.7 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.95, opacity: 0.7 }}
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          initial={INITIAL}
+          animate={ANIMATE}
+          exit={EXIT}
+          transition={TRANSITION}
           draggable
-          onDragStart={() => onDragStart(index)}
-          onDragOver={e => onDragOver(e, index)}
+          onDragStart={handleDragStart(index)}
+          onDragOver={handleDragOver(index)}
           onDrop={onDrop}
-          style={{ cursor: "grab" }}
+          style={STYLE}
         >
-          <TaskCard task={task} />
+          <MemoizedTaskCard task={task} />
         </motion.div>
       ))}
-    </AnimatePresence>)
-}
+    </AnimatePresence>
+  );
+};
 
 export default AnimatedDiv;

@@ -16,7 +16,6 @@ const Aside = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const project = searchParams.get('project') || '';
-
   const user = searchParams.get('user') || '';
 
   const activeProject = (id: number): boolean => {
