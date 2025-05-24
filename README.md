@@ -1,5 +1,5 @@
 # task_manager
-Simple task manager for business.
+İşletmeler için basit görev yöneticisi.
 
 ## Tasks
 
