@@ -4,6 +4,8 @@
 ## Tasks
 
 ![Screenshot 2025-05-24 at 14 19 44](https://github.com/user-attachments/assets/d87f87e9-a6e3-4642-8514-8292c28b7641)
+#### Gorev karti uzerine sag tiklama yaparak silebilirsiniz.
+![Screenshot 2025-05-24 at 21 59 53](https://github.com/user-attachments/assets/e4641a46-9ad8-4341-89bb-77356dcd2116)
 
 ### Gereksinimler
 - Backend
