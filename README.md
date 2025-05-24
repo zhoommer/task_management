@@ -20,3 +20,21 @@
   - `npm install`
   - `npm run dev`
 
+### Kullandigim Teknolojier
+- Backend
+  - ExpressJs
+  - JWT(Json Web Token)
+  - Prisma
+  - Morgan (Logging)
+  - CORS
+
+- Frontend
+  - ReactTS
+  - React Router Dom
+  - Redux (State Management)
+  - Shadn (UI)
+  - Tailwindcss (UI)
+  - Motion (Animation)
+  - Toastify (Toast)
+  - React Hook Form (Form Management)
+  - Zod (Form Validation)
