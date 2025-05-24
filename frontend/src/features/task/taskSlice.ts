@@ -37,17 +37,19 @@ export const taskSlice = createSlice({
       state.doneTasks = action.payload;
     },
     removeTask: (state, action: PayloadAction<{ taskId: number; status: "waiting" | "inprogress" | "test" | "done" }>) => {
-      if (action.payload.status === 'waiting') {
-        state.waitingTasks = state.waitingTasks.filter((task) => task.id !== action.payload.taskId);
+      const { status, taskId } = action.payload;
+
+      if (status === 'waiting') {
+        state.waitingTasks = state.waitingTasks.filter((task) => task.id !== taskId);
       }
-      if (action.payload.status === 'inprogress') {
-        state.inProgressTasks = state.inProgressTasks.filter((task) => task.id !== action.payload.taskId);
+      if (status === 'inprogress') {
+        state.inProgressTasks = state.inProgressTasks.filter((task) => task.id !== taskId);
       }
-      if (action.payload.status === 'test') {
-        state.testTasks = state.testTasks.filter((task) => task.id !== action.payload.taskId);
+      if (status === 'test') {
+        state.testTasks = state.testTasks.filter((task) => task.id !== taskId);
       }
-      if (action.payload.status === 'done') {
-        state.doneTasks = state.doneTasks.filter((task) => task.id !== action.payload.taskId);
+      if (status === 'done') {
+        state.doneTasks = state.doneTasks.filter((task) => task.id !== taskId);
       }
     }
   },

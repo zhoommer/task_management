@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import type { User } from "@/features/user/types";
-import { z } from "zod"
+import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskService } from "../services/taskService";
@@ -10,13 +9,14 @@ import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "@/features/store";
 import { closeDialog } from "@/features/dialog/dialogSlice";
 import { setProjects } from "@/features/project/projectSlice";
+import { setUsers } from "@/features/user/userSlice";
 
 
 export default function useCreateTask() {
   const dispatch = useAppDispatch();
   const { projects } = useAppSelector((state) => state.project);
+  const { users } = useAppSelector((state) => state.user);
   const [loading, setLoading] = useState<boolean>(false)
-  const [users, setUser] = useState<User[]>([]);
 
   const FormSchema = z.object({
     title: z.string({
@@ -58,7 +58,7 @@ export default function useCreateTask() {
     if (!users) {
       const fetchUsers = async () => {
         const response = await userService.getAll();
-        setUser(response.data);
+        dispatch(setUsers(response.data));
       }
 
       fetchUsers();

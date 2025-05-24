@@ -5,6 +5,7 @@ import projectReducer from "./project/projectSlice";
 import dialogReducer from "./dialog/dialogSlice";
 import taskReducer from "./task/taskSlice";
 import userReducer from "./user/userSlice";
+import deleteDialogReducer from "./deleteDialog/deleteDialogSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     task: taskReducer,
     user: userReducer,
     dialog: dialogReducer,
+    deleteDialog: deleteDialogReducer,
   },
 });
 
