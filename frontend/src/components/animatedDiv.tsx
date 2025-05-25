@@ -6,8 +6,8 @@ import type { Task } from "@/features/task/types";
 type AnimatedDivProps = {
   taskList: Task[];
   onDragStart: (index: number) => void;
-  onDragOver: (e: any, index: number) => void;
-  onDrop: any;
+  onDragOver: (e: React.DragEvent<HTMLDivElement>, index: number) => void;
+  onDrop: () => void;
 }
 
 
@@ -26,7 +26,7 @@ const AnimatedDiv = ({ taskList, onDragStart, onDragOver, onDrop }: AnimatedDivP
     [onDragStart]
   );
   const handleDragOver = useCallback(
-    (index: number) => (e) => onDragOver(e, index),
+    (index: number) => (e: React.DragEvent<HTMLDivElement>) => onDragOver(e, index),
     [onDragOver]
   );
 
