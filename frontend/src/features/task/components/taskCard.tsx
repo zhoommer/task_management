@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { useAppDispatch } from "@/features/store";
 import { removeTask } from "../taskSlice";
+import { getAvatarName } from "@/lib/getAvatarName";
 
 
 const TaskCard = ({ task }: { task: Task }) => {
@@ -43,7 +44,7 @@ const TaskCard = ({ task }: { task: Task }) => {
                   {task.title}
                 </span>
                 <Avatar className="bg-purple-300 text-zinc-100 flex justify-center items-center">
-                  <AvatarFallback className="text-black">{task.assignments[0].user.name.split(' ')[0][0] + task.assignments[0].user.name.split(' ').at(-1)[0]}</AvatarFallback>
+                  <AvatarFallback className="text-black">{getAvatarName(task.assignments[0].user.name)}</AvatarFallback>
                 </Avatar>
               </CardTitle>
               <CardDescription>{task.description}</CardDescription>

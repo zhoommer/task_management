@@ -10,11 +10,7 @@ import { toast } from 'react-toastify';
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  const firstChar = user?.name.split(' ')[0][0];
-
-  const lastChar = user?.name.split(' ').at(-1)[0];
+  const avatarName = localStorage.getItem('avatarName');
 
   const logOut = async () => {
     localStorage.clear();
@@ -32,7 +28,7 @@ const Navbar = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild className='cursor-pointer'>
             <Avatar className='drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]'>
-              <AvatarFallback>{firstChar + lastChar}</AvatarFallback>
+              <AvatarFallback>{avatarName}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">

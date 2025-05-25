@@ -17,6 +17,7 @@ export interface Response {
   data: {
     token: string;
     user: User;
+    avatarName: string;
   }
 }
 

@@ -35,6 +35,8 @@ export default function useLogin() {
 
       localStorage.setItem('user', JSON.stringify(response.data.user));
 
+      localStorage.setItem('avatarName', response.data.avatarName);
+
       setAuthenticated(true);
 
       toast.success('Tekrar hoşgeldiniz.');

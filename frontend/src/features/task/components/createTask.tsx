@@ -123,6 +123,7 @@ const CreateTask = () => {
                       <PopoverTrigger>
                         <FormControl>
                           <Button
+                            type="button"
                             variant={"outline"}
                             className={cn(
                               "pl-3 text-left font-normal w-full",

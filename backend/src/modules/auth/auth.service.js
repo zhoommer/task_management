@@ -40,6 +40,12 @@ const login = async (body) => {
   return {
     token: token,
     user: user,
+    avatarName: user.name ? (() => {
+      const parts = user.name.trim().split(/\s+/);
+      if (parts.length === 1) return parts[0];
+      return `${parts[0][0]}${parts[parts.length - 1][0]}`;
+    })()
+      : ''
   };
 }
 
