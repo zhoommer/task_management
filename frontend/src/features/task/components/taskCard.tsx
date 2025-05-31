@@ -8,7 +8,7 @@ import { taskService } from "../services/taskService";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { useAppDispatch } from "@/features/store";
-import { removeTask } from "../taskSlice";
+import { openTaskDetail, removeTask, setTaskDetail } from "../taskSlice";
 import { getAvatarName } from "@/lib/getAvatarName";
 
 
@@ -58,7 +58,13 @@ const TaskCard = ({ task }: { task: Task }) => {
           </Card>
         </ContextMenuTrigger>
         <ContextMenuContent>
-          <ContextMenuItem className="flex justify-between">
+          <ContextMenuItem
+            className="flex justify-between"
+            onClick={() => {
+              dispatch(openTaskDetail());
+              dispatch(setTaskDetail(task));
+            }}
+          >
             Aç
             <ExternalLink />
           </ContextMenuItem>

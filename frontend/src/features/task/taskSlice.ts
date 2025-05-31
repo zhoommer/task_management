@@ -7,6 +7,8 @@ type InitialState = {
   inProgressTasks: Task[];
   testTasks: Task[];
   doneTasks: Task[];
+  taskDetailDialogStatus: boolean;
+  taskDetailState: Task | null;
 }
 
 const initialState: InitialState = {
@@ -15,6 +17,8 @@ const initialState: InitialState = {
   inProgressTasks: [],
   testTasks: [],
   doneTasks: [],
+  taskDetailDialogStatus: false,
+  taskDetailState: null,
 }
 
 export const taskSlice = createSlice({
@@ -51,9 +55,28 @@ export const taskSlice = createSlice({
       if (status === 'done') {
         state.doneTasks = state.doneTasks.filter((task) => task.id !== taskId);
       }
+    },
+    openTaskDetail: (state) => {
+      state.taskDetailDialogStatus = true;
+    },
+    closeTaskDetail: (state) => {
+      state.taskDetailDialogStatus = false;
+    },
+    setTaskDetail: (state, action: PayloadAction<Task>) => {
+      state.taskDetailState = action.payload;
     }
   },
-})
+});
 
 export default taskSlice.reducer;
-export const { setLoading, setWaitingTask, setInProgressTasks, setTestTasks, setDoneTasks, removeTask } = taskSlice.actions;
+export const {
+  setLoading,
+  setWaitingTask,
+  setInProgressTasks,
+  setTestTasks,
+  setDoneTasks,
+  removeTask,
+  openTaskDetail,
+  closeTaskDetail,
+  setTaskDetail,
+} = taskSlice.actions;

@@ -28,6 +28,17 @@ const getAll = async (queries) => {
   }
 }
 
+const getById = async (id) => {
+  const task = await prisma.task.findUnique({
+    where: { id },
+    include: {
+      createdBy: { select: { id: true, name: true, createdAt: true } },
+      assignments: { select: { user: { select: { id: true, name: true } } } },
+    }
+  });
+  return task;
+}
+
 const create = async (body, createdById) => {
   const { title, description, priority, dueDate, projectId, assignedUserId } = body;
 
@@ -94,6 +105,7 @@ const deleteTask = async (id) => {
 
 module.exports = {
   getAll,
+  getById,
   create,
   update,
   updateTaskStatus,

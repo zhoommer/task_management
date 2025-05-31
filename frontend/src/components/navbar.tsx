@@ -6,7 +6,6 @@ import { LogOut, Settings, User } from 'lucide-react';
 import { toast } from 'react-toastify';
 
 
-
 const Navbar = () => {
   const navigate = useNavigate();
 

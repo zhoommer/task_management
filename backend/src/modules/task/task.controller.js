@@ -11,6 +11,16 @@ const getAll = async (req, res) => {
   return res.status(200).json({ message: 'All tasks succesfully returned.', data: allTasks });
 }
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) return res.status(400).json({ message: 'Missing field task id.' });
+
+  const task = await taskService.getById(id);
+
+  return res.status(200).json({ message: 'Task found.', data: task });
+}
+
 const create = async (req, res) => {
 
   if (!PRIORITY.includes(req.body.priority)) return res.status(400).json({ message: 'Priority must be low, medium, high, critical.' });
@@ -77,6 +87,7 @@ const deleteTask = async (req, res) => {
 
 module.exports = {
   getAll,
+  getById,
   create,
   update,
   updateTaskStatus,
