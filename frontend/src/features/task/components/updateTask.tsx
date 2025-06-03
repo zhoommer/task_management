@@ -1,16 +1,15 @@
+import React from "react";
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAppSelector } from "@/features/store";
-import useTaskCard from "../hooks/useTaskCard";
 
 
-const TaskDetail = () => {
+const UpdateTask = () => {
 
   const { taskDetailDialogStatus, taskDetailState } = useAppSelector((state) => state.task);
 
   const { users } = useAppSelector((state) => state.user);
-
-  const { priorityLevel } = useTaskCard();
 
 
   return (
@@ -18,11 +17,19 @@ const TaskDetail = () => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle
+            contentEditable
+            suppressContentEditableWarning
+            onInput={(event: React.FormEvent<HTMLDivElement>) => console.log(event.currentTarget.textContent)}
           >
             {taskDetailState?.title}
+
+
           </DialogTitle>
           <DialogDescription className="flex justify-between gap-2">
             <div
+              contentEditable
+              suppressContentEditableWarning
+              onInput={(event: React.FormEvent<HTMLDivElement>) => console.log(event.currentTarget.textContent)}
             >
               {taskDetailState?.description}
             </div>
@@ -43,12 +50,12 @@ const TaskDetail = () => {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex justify-between items-center">
-          <div className="text-stone-400 text-sm">
+          <div className="text-stone-400">
             <span className="font-semibold">Bitiş Tarihi: </span>
             <span>{taskDetailState?.dueDate.split('T')[0]}</span>
           </div>
           <div>
-            {priorityLevel(taskDetailState?.priority || 'low')}
+            <Button type="submit">Kaydet</Button>
           </div>
         </DialogFooter>
       </DialogContent>
@@ -56,4 +63,4 @@ const TaskDetail = () => {
   )
 }
 
-export default TaskDetail;
+export default UpdateTask;

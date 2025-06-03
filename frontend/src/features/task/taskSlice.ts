@@ -9,7 +9,7 @@ type InitialState = {
   doneTasks: Task[];
   taskDetailDialogStatus: boolean;
   taskDetailState: Task | null;
-}
+};
 
 const initialState: InitialState = {
   loading: false,
@@ -19,7 +19,7 @@ const initialState: InitialState = {
   doneTasks: [],
   taskDetailDialogStatus: false,
   taskDetailState: null,
-}
+};
 
 export const taskSlice = createSlice({
   name: "task",
@@ -40,19 +40,29 @@ export const taskSlice = createSlice({
     setDoneTasks: (state, action: PayloadAction<Task[]>) => {
       state.doneTasks = action.payload;
     },
-    removeTask: (state, action: PayloadAction<{ taskId: number; status: "waiting" | "inprogress" | "test" | "done" }>) => {
+    removeTask: (
+      state,
+      action: PayloadAction<{
+        taskId: number;
+        status: "waiting" | "inprogress" | "test" | "done";
+      }>,
+    ) => {
       const { status, taskId } = action.payload;
 
-      if (status === 'waiting') {
-        state.waitingTasks = state.waitingTasks.filter((task) => task.id !== taskId);
+      if (status === "waiting") {
+        state.waitingTasks = state.waitingTasks.filter(
+          (task) => task.id !== taskId,
+        );
       }
-      if (status === 'inprogress') {
-        state.inProgressTasks = state.inProgressTasks.filter((task) => task.id !== taskId);
+      if (status === "inprogress") {
+        state.inProgressTasks = state.inProgressTasks.filter(
+          (task) => task.id !== taskId,
+        );
       }
-      if (status === 'test') {
+      if (status === "test") {
         state.testTasks = state.testTasks.filter((task) => task.id !== taskId);
       }
-      if (status === 'done') {
+      if (status === "done") {
         state.doneTasks = state.doneTasks.filter((task) => task.id !== taskId);
       }
     },
@@ -64,7 +74,7 @@ export const taskSlice = createSlice({
     },
     setTaskDetail: (state, action: PayloadAction<Task>) => {
       state.taskDetailState = action.payload;
-    }
+    },
   },
 });
 
