@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./assets/css/login.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -135,4 +137,55 @@
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+
+:root {
+  color-scheme: light dark;
+
+  --light-primary: #4A6FA5;
+  --dark-primary: #6B8CBE;
+
+  --light-secondary: #6B8CBE;
+  --dark-secondary: #8AAEE0;
+
+  --light-background: #F8F9FA;
+  --dark-background: #121212;
+
+  --light-surface: #FFF;
+  --dark-surface: #1E1E1E;
+
+  --light-text: #333;
+  --dark-text: #E0E0E0;
+
+  --light-subtle-text: #6C757D;
+  --dark-subtle-text: #A0A0A0;
+
+  --light-success: #28A745;
+  --dark-success: #48A868;
+
+  --light-warning: #FFC107;
+  --dark-warning: #FFD54F;
+
+  --light-error: #DC3545;
+  --dark-error: #E57373;
+
+  --light-border: #E0E0E0;
+  --dark-border: #333;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+.light {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
 }
