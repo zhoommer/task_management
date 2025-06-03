@@ -1,0 +1,3 @@
+aside {
+  background-color: light-dark(var(--light-background), var(--dark-background));
+}

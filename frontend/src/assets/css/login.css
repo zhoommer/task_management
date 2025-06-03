@@ -50,6 +50,7 @@
   padding: 0.3rem 0.92rem;
   margin-top: 0.3rem;
   border-radius: 0.3rem;
+  font-size: 0.8rem;
 }
 
 .input::placeholder {

@@ -9,7 +9,7 @@ type IColorThemeContext = {
 const ColorThemeContext = createContext<IColorThemeContext | null>(null);
 
 const ColorThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   const toggleTheme = (newTheme: 'light' | 'dark') => {
     setTheme(newTheme);

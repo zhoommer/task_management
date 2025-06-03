@@ -1,0 +1,17 @@
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: light-dark(var(--light-background), var(--dark-background));
+}
+
+.brand__name::after {
+  content: 'Task Master';
+  font-size: 3rem;
+  font-weight: 800;
+
+  background: var(--light-linear-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
