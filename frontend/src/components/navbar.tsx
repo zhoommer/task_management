@@ -21,7 +21,7 @@ const Navbar = () => {
     <nav className={`${theme}`}>
       <ul className='navbar'>
         <li className='navbar__item'>
-          <Link to={'/'}>
+          <Link to={'/'} className='navbar__link'>
             <h1 className={`brand__name ${theme}`}></h1>
           </Link>
         </li>

@@ -55,7 +55,7 @@ const Aside = () => {
     <aside className={`${theme}`}>
       <ul className='aside__menu'>
         <li className='aside__menu__item'>
-          <details className='aside__menu__list'>
+          <details className='aside__menu__list' open>
             <summary className={`aside__menu__list__title ${theme}`}>Projeler</summary>
             <ol>
               <li className={`aside__menu__list__item ${activeProject(Number(''))}`}>
@@ -71,7 +71,7 @@ const Aside = () => {
             </ol>
           </details>
 
-          <details>
+          <details open>
             <summary className={`aside__menu__list__title ${theme}`}>Kullanıcılar</summary>
             <ol>
               <li className={`aside__menu__list__item ${activeUser('')}`}>

@@ -1,20 +1,17 @@
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import type { Task } from "../types";
 import useTaskCard from "../hooks/useTaskCard";
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
-import { ExternalLink, SquarePen, Trash } from "lucide-react";
 import { taskService } from "../services/taskService";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { useAppDispatch } from "@/features/store";
-import { openTaskDetail, removeTask, setTaskDetail } from "../taskSlice";
-import { getAvatarName } from "@/lib/getAvatarName";
+import { removeTask } from "../taskSlice";
+import { useColorThemeProvider } from "@/context/colorThemeContext";
 
 
 const TaskCard = ({ task }: { task: Task }) => {
+  const { theme } = useColorThemeProvider();
   const dispatch = useAppDispatch();
-  const { priorityLevel, cardGradient } = useTaskCard();
+  const { priorityLevel } = useTaskCard();
   const [loading, setLoading] = useState<boolean>(false);
 
 
@@ -33,54 +30,25 @@ const TaskCard = ({ task }: { task: Task }) => {
 
   return (
     <>
-      <ContextMenu>
-        <ContextMenuTrigger disabled={loading}>
-          <Card
-            className={`bg-gradient-to-r ${cardGradient(task.status)} opacity-70 rounded p-3 mt-2 hover:opacity-100 transition-all cursor-pointer`}
-          >
-            <CardHeader>
-              <CardTitle className="flex justify-between items-center">
-                <span>
-                  {task.title}
-                </span>
-                <Avatar className="bg-purple-300 text-zinc-100 flex justify-center items-center">
-                  <AvatarFallback className="text-black">{getAvatarName(task.assignments[0].user.name)}</AvatarFallback>
-                </Avatar>
-              </CardTitle>
-              <CardDescription>{task.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex justify-between items-center">
-              <span className="text-sm font-medium">
-                {task.createdAt.split("T")[0] + ' / ' + task.createdAt.split('T')[1].split(".")[0]}
-              </span>
-              {priorityLevel(task.priority)}
-            </CardContent>
-          </Card>
-        </ContextMenuTrigger>
-        <ContextMenuContent>
-          <ContextMenuItem
-            className="flex justify-between"
-            onClick={() => {
-              dispatch(openTaskDetail());
-              dispatch(setTaskDetail(task));
-            }}
-          >
-            Aç
-            <ExternalLink />
-          </ContextMenuItem>
-          <ContextMenuItem className="flex justify-between">
-            Düzenle
-            <SquarePen />
-          </ContextMenuItem>
-          <ContextMenuItem
-            className="flex justify-between"
-            onClick={handleDelete}
-          >
-            Sil
-            <Trash />
-          </ContextMenuItem>
-        </ContextMenuContent>
-      </ContextMenu>
+      <div className={`card ${theme}`}>
+        <div className={`card__header ${theme}`}>
+          <h4>{task.title}</h4>
+          <div>{task.assignments[0].user.name}</div>
+        </div>
+        <div className={`card__content ${theme}`}>
+          <p>{task.description}</p>
+        </div>
+        <div className={`card__footer ${theme}`}>
+          <span>
+            {
+              task.createdAt.split('T')[0]
+              + ' / ' +
+              task.createdAt.split('T')[1].split('.')[0]
+            }
+          </span>
+          {priorityLevel(task.priority)}
+        </div>
+      </div>
     </>
   )
 }
