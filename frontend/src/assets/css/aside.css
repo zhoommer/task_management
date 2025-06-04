@@ -1,0 +1,36 @@
+.aside__menu {
+  border-radius: 0.5rem;
+}
+
+.aside__menu__list__title {
+  background-color: light-dark(var(--light-primary), var(--dark-primary)) !important;
+  font-weight: 700;
+  color: #f1f1f1;
+  padding: 0 0.7rem;
+}
+
+.aside__menu__list__item {
+  background-color: light-dark(var(--light-background), var(--dark-background));
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  transition: all 0.3s ease;
+  padding: 0.3rem 0.942rem;
+}
+
+.aside__menu__list__item>button {
+  width: 100%;
+  text-align: start;
+  color: light-dark(var(--light-text), var(--dark-text));
+  background-color: transparent;
+  border: none;
+}
+
+.aside__menu__list__item:hover {
+  background-color: light-dark(var(--light-secondary), var(--dark-secondary));
+  color: #f1f1f1;
+}
+
+.active__item {
+  background-color: light-dark(var(--light-secondary), var(--dark-secondary));
+  color: #f1f1f1;
+}

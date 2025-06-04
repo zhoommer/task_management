@@ -1,96 +1,87 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Lock, User, LogIn, PlusCircle, Loader2 } from 'lucide-react';
 import useLogin from '../hooks/useLogin';
+import { useColorThemeProvider } from '@/context/colorThemeContext';
 
 const LoginPage = () => {
   const { loading, handleChange, handleSubmit } = useLogin();
+
+  const { theme } = useColorThemeProvider();
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-zinc-100 to-stone-400 flex items-center justify-center p-4">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
-          className="w-full max-w-md bg-zinc-200/10 backdrop-blur-md rounded-xl shadow-2xl border border-white/10 p-6 space-y-8"
-        >
-          <div className="text-center">
-            <h2 className="text-3xl font-bold link-btn-gradient bg-clip-text text-transparent tracking-tight">
-              TaskMaster
-            </h2>
-            <p className="text-gray-400 text-xs">Tekrar hoşgeldiniz! Görevlerinizi yönetmek için giriş yapınız.</p>
-          </div>
+    <form onSubmit={handleSubmit} className={`login__form ${theme}`}>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        className={`login__form__container ${theme}`}
+      >
+        <div className={`login__form__header ${theme}`}>
+          <h1 className="login__form__title">
+            TaskMaster
+          </h1>
+          <p className={`login__form__text ${theme}`}>Tekrar hoşgeldiniz! Görevlerinizi yönetmek için giriş yapınız.</p>
+        </div>
 
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-gray-400 flex items-center">
-                <User className="w-4 h-4 mr-2" />
-                Email
-              </Label>
-              <Input
-                id='passwordHash'
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-                className="bg-zinc-400/20 text-zinc-500 border-zinc-500/30 placeholder:text-gray-500 focus:ring-zinc-300 focust:border-zinc-300"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-gray-400 flex items-center">
-                <Lock className="w-4 h-4 mr-2" />
-                Parola
-              </Label>
-              <Input
-                id='passwordHash'
-                name='passwordHash'
-                type="password"
-                placeholder="Enter your password"
-                className="bg-zinc-400/20 text-zinc-500 border-zinc-500/30 placeholder:text-gray-500 focus:ring-zinc-300 focust:border-zinc-300"
-                onChange={handleChange}
-              />
-            </div>
-          </div>
+        <div className="form__item">
+          <label htmlFor="email" className={`input__label ${theme}`}>
+            <User className="input__label__icon" />
+            Email
+          </label>
+          <input
+            id='passwordHash'
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            className={`input ${theme}`}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form__item">
+          <label htmlFor="password" className={`input__label ${theme}`}>
+            <Lock className="input__label__icon" />
+            Parola
+          </label>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <Button
-              type='submit'
-              variant="default"
-              disabled={loading}
-              className={cn(
-                "w-full sm:w-auto bg-blue-500/90 text-white hover:bg-blue-500 transition-colors duration-300",
-                "shadow-lg hover:shadow-blue-500/20"
-              )}
-            >
-              Giriş
-              {
-                loading ? <Loader2 className='animate-spin' /> : <LogIn />
-              }
-            </Button>
-            <Button
-              type='button'
-              variant="outline"
-              className={cn(
-                "w-full sm:w-auto text-gray-300 hover:text-white hover:bg-zinc-500/20 border-zinc-500/30",
-                "transition-colors duration-300"
-              )}
-            >
-              <PlusCircle className="w-4 h-4 mr-1" />
-              Kayıt Ol
-            </Button>
-          </div>
+          <input
+            id='passwordHash'
+            name='passwordHash'
+            type="password"
+            placeholder="Enter your password"
+            className={`input ${theme}`}
+            onChange={handleChange}
+          />
+        </div>
 
-          <div className="text-center text-gray-400 text-sm">
-            <a href="#" className="hover:text-zinc-300 transition-colors">
+        <div className="form__action__container">
+          <div className="forgot__password__container">
+            <a href="#" className={`forgot__password__link ${theme}`}>
               Şifremi unuttum?
             </a>
           </div>
-        </motion.div>
-      </div>
-    </form>
+
+          <div className="form__action">
+            <button
+              type='submit'
+              disabled={loading}
+              className='login__button'
+            >
+              Giriş
+              {
+                loading ? <Loader2 className='spin__loading' /> : <LogIn className='login__button__icon' />
+              }
+            </button>
+            <button
+              type='button'
+              className='register__button'
+            >
+              <PlusCircle className="register__button__icon" />
+              Kayıt Ol
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </form >
   );
 };
 

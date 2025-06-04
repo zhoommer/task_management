@@ -7,22 +7,25 @@ import { ToastContainer, Bounce } from 'react-toastify';
 import { Provider } from 'react-redux'
 import { store } from './features/store.ts'
 import { AuthProvider } from './context/authContext.tsx'
+import { ColorThemeProvider } from './context/colorThemeContext.tsx'
 
 createRoot
   (document.getElementById('root')!).render(
     <StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <ToastContainer
-            position='top-right'
-            autoClose={3000}
-            hideProgressBar={false}
-            transition={Bounce}
-          />
-          <AuthProvider>
-            <App />
-          </AuthProvider>
-        </BrowserRouter>
-      </Provider>
+      <ColorThemeProvider>
+        <Provider store={store}>
+          <BrowserRouter>
+            <ToastContainer
+              position='top-right'
+              autoClose={3000}
+              hideProgressBar={false}
+              transition={Bounce}
+            />
+            <AuthProvider>
+              <App />
+            </AuthProvider>
+          </BrowserRouter>
+        </Provider>
+      </ColorThemeProvider>
     </StrictMode>
   )
