@@ -2,10 +2,10 @@
   display: grid;
   grid-template-columns: repeat(4, 3fr);
   gap: 1rem;
-  border: light-dark(var(--light-border), var(--dark-border));
 }
 
 .task__card__container {
+  border: 1px solid light-dark(var(--light-border), var(--dark-border));
   border-radius: 0.75rem;
   background-color: light-dark(var(--light-background), var(--dark-background));
   padding: 0.75rem;

@@ -50,6 +50,7 @@
   padding: 0.3rem 0.92rem;
   margin-top: 0.3rem;
   border-radius: 0.3rem;
+  border: 1px solid light-dark(var(--light-border), var(--dark-border)) !important;
   font-size: 0.8rem;
 }
 
@@ -82,6 +83,7 @@
   padding: 0.3rem 0.942rem;
   color: #f1f1f1;
   border-radius: 0.3rem;
+  border: none;
 }
 
 .login__button {

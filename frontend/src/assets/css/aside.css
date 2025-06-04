@@ -6,7 +6,7 @@
   background-color: light-dark(var(--light-primary), var(--dark-primary)) !important;
   font-weight: 700;
   color: #f1f1f1;
-  padding: 0 0.7rem;
+  padding: 0.3rem;
 }
 
 .aside__menu__list__item {
