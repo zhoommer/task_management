@@ -1,13 +1,13 @@
 import useDoneTask from "../hooks/useDoneTask";
-import Loading from "@/components/ui/loading";
 import AnimatedDiv from "@/components/animatedDiv";
 import { useColorThemeProvider } from "@/context/colorThemeContext";
+import { Loader2 } from "lucide-react";
 
 const DoneTask = () => {
   const { loading, taskList, handleDragStart, handleDragOver, handleDrop } = useDoneTask();
 
   const { theme } = useColorThemeProvider();
-  if (loading) return <Loading />
+  if (loading) return <Loader2 className="spin__loading" />
 
   return (
     <div

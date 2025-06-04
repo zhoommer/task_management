@@ -1,7 +1,7 @@
 import useInProgressTask from "../hooks/useInProgressTask";
-import Loading from "@/components/ui/loading";
 import AnimatedDiv from "@/components/animatedDiv";
 import { useColorThemeProvider } from "@/context/colorThemeContext";
+import { Loader2 } from "lucide-react";
 
 const InProgressTask = () => {
   const { loading, taskList, handleDragStart, handleDragOver, handleDrop } = useInProgressTask();
@@ -10,7 +10,7 @@ const InProgressTask = () => {
 
 
 
-  if (loading) return <Loading />
+  if (loading) return <Loader2 className="spin__loading" />
 
   return (
     <div className={`task__card__container ${theme}`}>

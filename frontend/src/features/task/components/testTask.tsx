@@ -1,14 +1,14 @@
-import Loading from "@/components/ui/loading";
 import useTestTask from "../hooks/useTestTask";
 import AnimatedDiv from "@/components/animatedDiv";
 import { useColorThemeProvider } from "@/context/colorThemeContext";
+import { Loader2 } from "lucide-react";
 
 const TestTask = () => {
   const { loading, taskList, handleDragStart, handleDragOver, handleDrop } = useTestTask();
 
   const { theme } = useColorThemeProvider();
 
-  if (loading) return <Loading />
+  if (loading) return <Loader2 className="spin__loading" />
 
   return (
     <div className={`task__card__container ${theme}`}>

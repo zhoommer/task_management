@@ -1,14 +1,14 @@
 import useWaitingTask from "../hooks/useWaitingTask";
-import Loading from "@/components/ui/loading";
 import AnimatedDiv from "@/components/animatedDiv";
 import { useColorThemeProvider } from "@/context/colorThemeContext";
+import { Loader2 } from "lucide-react";
 
 const WaitingTask = () => {
   const { loading, taskList, handleDragStart, handleDragOver, handleDrop } = useWaitingTask();
 
   const { theme } = useColorThemeProvider();
 
-  if (loading) return <Loading />;
+  if (loading) return <Loader2 className="spin__loading" />;
 
   return (
     <div className={`task__card__container ${theme}`}>

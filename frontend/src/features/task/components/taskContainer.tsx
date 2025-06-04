@@ -14,8 +14,8 @@ const TaskContainer = () => {
       <InProgressTask />
       <TestTask />
       <DoneTask />
-      <CreateTask />
-      <TaskDetail />
+      {/* <CreateTask /> */}
+      {/* <TaskDetail /> */}
     </div>
   )
 }
