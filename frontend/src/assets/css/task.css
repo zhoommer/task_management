@@ -84,6 +84,14 @@
   padding: 1rem;
 }
 
+.card__user {
+  background-color: light-dark(var(--light-primary), var(--dark-primary));
+  padding: 0.5rem;
+  border-radius: 100%;
+  color: #f1f1f1;
+  font-size: 0.7rem;
+}
+
 .card__header,
 .card__footer {
   display: flex;

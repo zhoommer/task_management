@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useAppDispatch } from "@/features/store";
 import { removeTask } from "../taskSlice";
 import { useColorThemeProvider } from "@/context/colorThemeContext";
+import { getAvatarName } from "@/lib/getAvatarName";
 
 
 const TaskCard = ({ task }: { task: Task }) => {
@@ -33,7 +34,7 @@ const TaskCard = ({ task }: { task: Task }) => {
       <div className={`card ${theme}`}>
         <div className={`card__header ${theme}`}>
           <h4>{task.title}</h4>
-          <div>{task.assignments[0].user.name}</div>
+          <div className="card__user">{getAvatarName(task.assignments[0].user.name)}</div>
         </div>
         <div className={`card__content ${theme}`}>
           <p>{task.description}</p>
