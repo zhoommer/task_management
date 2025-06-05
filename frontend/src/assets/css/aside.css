@@ -1,0 +1,60 @@
+.aside__menu {
+  border-radius: 0.5rem;
+  position: relative;
+  height: 100%;
+}
+
+.aside__menu__list__title {
+  background-color: light-dark(var(--light-primary), var(--dark-primary)) !important;
+  font-weight: 700;
+  color: #f1f1f1;
+  padding: 0.3rem;
+}
+
+.aside__menu__list__item {
+  background-color: light-dark(var(--light-background), var(--dark-background));
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  transition: all 0.3s ease;
+  padding: 0.3rem 0.942rem;
+}
+
+.aside__menu__list__item>button {
+  width: 100%;
+  text-align: start;
+  color: light-dark(var(--light-text), var(--dark-text));
+  background-color: transparent;
+  border: none;
+}
+
+.aside__menu__list__item:hover {
+  background-color: light-dark(var(--light-secondary), var(--dark-secondary));
+  color: #f1f1f1;
+}
+
+.active__item {
+  background-color: light-dark(var(--light-secondary), var(--dark-secondary));
+  color: #f1f1f1;
+}
+
+.add__project__item {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+}
+
+.add__project__item>button {
+  width: 100%;
+  background-color: light-dark(var(--light-primary), var(--dark-primary));
+  border: none;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background-color 0.3s ease;
+}
+
+.add__project__item>button:hover {
+  background-color: light-dark(var(--light-secondary), var(--dark-secondary));
+}
