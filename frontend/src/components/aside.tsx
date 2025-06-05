@@ -5,12 +5,10 @@ import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/features/store";
 import { setProjects } from "@/features/project/projectSlice";
 import { setUsers } from "@/features/user/userSlice";
-import { useColorThemeProvider } from "@/context/colorThemeContext";
 import { Plus } from "lucide-react";
 
 
 const Aside = () => {
-  const { theme } = useColorThemeProvider();
   const dispatch = useAppDispatch();
   const { projects } = useAppSelector((state) => state.project);
   const { users } = useAppSelector((state) => state.user);
@@ -53,11 +51,11 @@ const Aside = () => {
   }, [dispatch])
 
   return (
-    <aside className={`${theme}`}>
+    <aside>
       <ul className='aside__menu'>
         <li className='aside__menu__item'>
           <details className='aside__menu__list' open>
-            <summary className={`aside__menu__list__title ${theme}`}>Projeler</summary>
+            <summary className='aside__menu__list__title'>Projeler</summary>
             <ol>
               <li className={`aside__menu__list__item ${activeProject(Number(''))}`}>
                 <button onClick={() => handleClick('project', '')}>Hepsi</button>
@@ -73,7 +71,7 @@ const Aside = () => {
           </details>
 
           <details open>
-            <summary className={`aside__menu__list__title ${theme}`}>Kullanıcılar</summary>
+            <summary className='aside__menu__list__title'>Kullanıcılar</summary>
             <ol>
               <li className={`aside__menu__list__item ${activeUser('')}`}>
                 <button onClick={() => handleClick('user', '')}>Hepsi</button>
