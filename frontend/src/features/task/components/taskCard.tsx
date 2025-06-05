@@ -5,12 +5,12 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { useAppDispatch } from "@/features/store";
 import { removeTask } from "../taskSlice";
-import { useColorThemeProvider } from "@/context/colorThemeContext";
 import { getAvatarName } from "@/lib/getAvatarName";
+import { useThemeProvider } from "@/context/colorThemeContext";
 
 
 const TaskCard = ({ task }: { task: Task }) => {
-  const { theme } = useColorThemeProvider();
+  const { theme } = useThemeProvider();
   const dispatch = useAppDispatch();
   const { priorityLevel } = useTaskCard();
   const [loading, setLoading] = useState<boolean>(false);
