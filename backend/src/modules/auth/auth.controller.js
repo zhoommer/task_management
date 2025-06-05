@@ -1,34 +1,16 @@
 const authService = require('./auth.service');
-const validateFields = require('../../utils/validateFields');
+const { asyncWrapper } = require('../../middleware/asyncWrapper');
 
-const register = async (req, res) => {
-  const requiredFields = ['name', 'email', 'passwordHash'];
+exports.register = asyncWrapper(async (req, res) => {
+  const response = await authService.register(req.body);
+  return res.status(201).json({ message: 'User created successfully.', data: response });
+});
 
-  const result = validateFields(req.body, requiredFields);
 
-  if (!result.valid) {
-    return res.status(400).json({ message: `Missing or invalid field: ${result.missingField}` });
-  }
-
-  const user = await authService.register(req.body);
-  return res.status(201).json({ message: 'User created successfully.', data: user });
-}
-
-const login = async (req, res) => {
-  const requiredFields = ['email', 'passwordHash'];
-
-  const result = validateFields(req.body, requiredFields);
-
-  if (!result.valid) {
-    return res.status(400).json({ message: `Missing or invalid field: ${result.missingField}` });
-  }
-
+exports.login = asyncWrapper(async (req, res) => {
   const response = await authService.login(req.body);
 
-  return res.status(200).json({ message: 'Logged in successfully.', data: response });
-}
+  console.log("RES: ", response);
 
-module.exports = {
-  register,
-  login,
-}
+  return res.status(200).json({ message: 'Logged in successfully.', data: response });
+})

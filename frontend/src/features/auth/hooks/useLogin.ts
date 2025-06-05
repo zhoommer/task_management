@@ -43,8 +43,9 @@ export default function useLogin() {
 
       navigate('/?user=&project=');
 
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      toast.error(error.response?.data?.error);
     } finally {
       setLoading(false);
     }

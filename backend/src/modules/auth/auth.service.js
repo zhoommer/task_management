@@ -2,54 +2,57 @@ const { PrismaClient } = require('@prisma/client');
 const { hashPassword, comparePassword } = require('../../utils/passwordHasher');
 const { generateToken } = require('../../utils/jwt');
 
-const prisma = new PrismaClient();
+const getAvatarName = (name) => {
+  if (!name) return '';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0];
+  return `${parts[0][0]}${parts[parts.length - 1][0]}`;
+};
 
-const register = async (body) => {
-  const { name, email, passwordHash } = body;
-  const hashedPassword = await hashPassword(passwordHash);
+class AuthService {
+  constructor() {
+    this.prisma = new PrismaClient();
+  };
 
-  try {
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        passwordHash: hashedPassword
-      }
+  async register(body) {
+    const { name, email, password } = body;
+    const hashedPassword = await hashPassword(password);
+
+    try {
+      const user = await this.prisma.user.create({
+        data: {
+          name,
+          email,
+          passwordHash: hashedPassword
+        }
+      });
+      return user;
+    } catch (error) {
+      throw { status: 500, message: error.message || 'Registration failed.' };
+    }
+  };
+
+  async login(body) {
+    const { email, passwordHash } = body;
+
+    const user = await this.prisma.user.findUnique({
+      where: { email }
     });
-    return user;
-  } catch (error) {
-    console.error(error);
-  }
-}
 
-const login = async (body) => {
-  const { email, passwordHash } = body;
+    if (!user) throw { status: 404, message: 'User not found.' };
 
-  const user = await prisma.user.findUnique({
-    where: { email }
-  });
+    const passwordMatch = await comparePassword(passwordHash, user.passwordHash);
 
-  if (!user) throw new Error('User not found.');
+    if (!passwordMatch) throw { status: 401, message: 'Password not matched!' };
 
-  const passwordMatch = await comparePassword(passwordHash, user.passwordHash);
+    const token = await generateToken(user.id, user.name);
 
-  if (!passwordMatch) throw new Error('Password not matched!');
-
-  const token = await generateToken(user.id, user.name);
-
-  return {
-    token: token,
-    user: user,
-    avatarName: user.name ? (() => {
-      const parts = user.name.trim().split(/\s+/);
-      if (parts.length === 1) return parts[0];
-      return `${parts[0][0]}${parts[parts.length - 1][0]}`;
-    })()
-      : ''
+    return {
+      token,
+      user,
+      avatarName: getAvatarName(user.name)
+    };
   };
 }
 
-module.exports = {
-  register,
-  login,
-}
+module.exports = new AuthService();
