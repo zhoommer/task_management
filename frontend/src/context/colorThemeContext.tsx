@@ -1,19 +1,26 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 
 
 type IColorThemeContext = {
   theme: 'light' | 'dark';
-  toggleTheme: (newTheme: 'light' | 'dark') => void;
+  toggleTheme: () => void;
 };
 
 const ColorThemeContext = createContext<IColorThemeContext | null>(null);
 
 const ColorThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
-  const toggleTheme = (newTheme: 'light' | 'dark') => {
-    setTheme(newTheme);
+  const localTheme = localStorage.getItem('theme');
+
+  const [theme, setTheme] = useState<'light' | 'dark'>(localTheme);
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
   };
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme])
 
   return (
     <ColorThemeContext.Provider value={{ theme, toggleTheme }}>

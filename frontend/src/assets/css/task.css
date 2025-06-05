@@ -126,3 +126,20 @@
   color: #f1f1f1;
   padding: 0.25rem 0.5rem;
 }
+
+
+.create__task__button {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  background-color: light-dark(var(--light-primary), var(--dark-primary));
+  border: none;
+  border-radius: 100%;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.create__task__button:hover {
+  background-color: light-dark(var(--light-secondary), var(--dark-secondary));
+}

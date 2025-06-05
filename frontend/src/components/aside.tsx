@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/features/store";
 import { setProjects } from "@/features/project/projectSlice";
 import { setUsers } from "@/features/user/userSlice";
 import { useColorThemeProvider } from "@/context/colorThemeContext";
+import { Plus } from "lucide-react";
 
 
 const Aside = () => {
@@ -86,6 +87,13 @@ const Aside = () => {
               }
             </ol>
           </details>
+        </li>
+
+        <li className="add__project__item">
+          <button>
+            Proje Ekle
+            <Plus />
+          </button>
         </li>
       </ul>
     </aside>

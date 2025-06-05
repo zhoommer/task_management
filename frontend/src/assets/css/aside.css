@@ -1,5 +1,7 @@
 .aside__menu {
   border-radius: 0.5rem;
+  position: relative;
+  height: 100%;
 }
 
 .aside__menu__list__title {
@@ -33,4 +35,26 @@
 .active__item {
   background-color: light-dark(var(--light-secondary), var(--dark-secondary));
   color: #f1f1f1;
+}
+
+.add__project__item {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+}
+
+.add__project__item>button {
+  width: 100%;
+  background-color: light-dark(var(--light-primary), var(--dark-primary));
+  border: none;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background-color 0.3s ease;
+}
+
+.add__project__item>button:hover {
+  background-color: light-dark(var(--light-secondary), var(--dark-secondary));
 }

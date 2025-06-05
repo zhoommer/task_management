@@ -79,6 +79,7 @@ body {
 }
 
 .main {
+  position: relative;
   display: flex;
   padding: 0.5rem 0;
   gap: 1rem;
