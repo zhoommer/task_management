@@ -2,9 +2,10 @@
 İşletmeler için basit görev yöneticisi.
 
 ## Tasks
+![Screenshot 2025-06-05 at 15 34 08](https://github.com/user-attachments/assets/bb6d4675-3bfd-4ac1-a045-6a6ad921b955)
+![Screenshot 2025-06-05 at 15 34 18](https://github.com/user-attachments/assets/f4484c15-fb6e-49bc-9e3e-21bff5f820ed)
 
-![Screenshot 2025-06-05 at 10 48 50](https://github.com/user-attachments/assets/a285a75a-ee94-4b37-a826-461456206ca8)
-![Screenshot 2025-06-05 at 10 49 00](https://github.com/user-attachments/assets/41832692-328b-47c6-97c2-4460688217dc)
+
 
 ### Gereksinimler
 - Backend
