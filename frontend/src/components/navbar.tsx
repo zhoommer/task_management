@@ -1,22 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import { useColorThemeProvider } from '@/context/colorThemeContext';
 import { Moon, Sun } from 'lucide-react';
+import UserMenu from './ui/menu/userMenu';
 
 
 const Navbar = () => {
-  const navigate = useNavigate();
-
   const { theme, toggleTheme } = useColorThemeProvider();
-
-  const avatarName = localStorage.getItem('avatarName');
-
-  const logOut = async () => {
-    localStorage.clear();
-    toast.info('Çıkış yapılıyor');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    navigate('/auth/login');
-  }
 
   return (
     <nav className={`${theme}`}>
@@ -27,7 +16,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li className='navbar__item'>
-          <div>{avatarName}</div>
+          <UserMenu />
           <button className='theme__switch__button' onClick={() => toggleTheme()}>
             {
               theme === 'light'
