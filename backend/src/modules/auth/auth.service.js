@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const { hashPassword, comparePassword } = require('../../utils/passwordHasher');
 const { generateToken } = require('../../utils/jwt');
+const validateFields = require('../../utils/validateFields');
 
 const getAvatarName = (name) => {
   if (!name) return '';
@@ -15,7 +16,18 @@ class AuthService {
   };
 
   async register(body) {
+    const requiredFields = ['name', 'email', 'password'];
+
+    const result = validateFields(body, requiredFields);
+
+    if (!result.valid) {
+      const error = new Error(`Missing or invalid field: ${result.missingField}`);
+      error.status = 400;
+      throw error;
+    }
+
     const { name, email, password } = body;
+
     const hashedPassword = await hashPassword(password);
 
     try {
@@ -28,22 +40,32 @@ class AuthService {
       });
       return user;
     } catch (error) {
-      throw { status: 500, message: error.message || 'Registration failed.' };
+      throw new Error(error.message || 'Registration failed');
     }
   };
 
   async login(body) {
+    const validatedFields = ['email', 'passwordHash'];
+
+    const result = validateFields(body, validatedFields);
+
+    if (!result.valid) {
+      const error = new Error(`Missing or invalid field: ${result.missingField}`);
+      error.status = 400;
+      throw error;
+    }
+
     const { email, passwordHash } = body;
 
     const user = await this.prisma.user.findUnique({
       where: { email }
     });
 
-    if (!user) throw { status: 404, message: 'User not found.' };
+    if (!user) throw new Error('User not found');
 
     const passwordMatch = await comparePassword(passwordHash, user.passwordHash);
 
-    if (!passwordMatch) throw { status: 401, message: 'Password not matched!' };
+    if (!passwordMatch) throw new Error('Password not matched');
 
     const token = await generateToken(user.id, user.name);
 

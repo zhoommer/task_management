@@ -9,8 +9,5 @@ exports.register = asyncWrapper(async (req, res) => {
 
 exports.login = asyncWrapper(async (req, res) => {
   const response = await authService.login(req.body);
-
-  console.log("RES: ", response);
-
   return res.status(200).json({ message: 'Logged in successfully.', data: response });
 })
