@@ -7,6 +7,7 @@ const getAll = async (req, res) => {
 }
 
 const create = async (req, res) => {
+  const createdById = req.user.id;
 
   const createdProject = await projectService.create(req.body, createdById);
 
@@ -15,12 +16,16 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
 
+  const id = req.params.id;
+
   const updatedProject = await projectService.update(req.body, Number(id));
 
   return res.status(200).json({ message: 'Project updated succesfully', data: updatedProject });
 }
 
 const deleteProject = async (req, res) => {
+
+  const id = req.params.id;
 
   const deletedProject = await projectService.deleteProject(Number(id));
 

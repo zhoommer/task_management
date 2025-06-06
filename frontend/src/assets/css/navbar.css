@@ -45,8 +45,8 @@
   color: #fffacd;
   background: #FFD700;
   border: none;
-  animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  /* animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both; */
+  /* -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both; */
 }
 
 .moon {
@@ -55,8 +55,8 @@
   border: none;
   color: #E0E7EF;
   background: #B0C4DE;
-  animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  /* animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both; */
+  /* -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both; */
 }
 
 @-webkit-keyframes slide-top {

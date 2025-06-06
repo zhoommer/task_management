@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const validateFields = require('../../utils/validateFields');
 
 
 class ProjectService {
@@ -39,7 +40,7 @@ class ProjectService {
   async create(body, id) {
     const validatedFields = ['name', 'description'];
 
-    const result = validatedFields(body, validatedFields);
+    const result = validateFields(body, validatedFields);
 
     if (!result.valid) {
       const error = new Error(`Missing or invalid field: ${result.missingField}`);
@@ -71,7 +72,7 @@ class ProjectService {
   async update(body, id) {
     const validatedFields = ['name', 'description'];
 
-    const result = validatedFields(body, validatedFields);
+    const result = validateFields(body, validatedFields);
 
     if (!result.valid) {
       const error = new Error(`Missing or invalid field: ${result.missingField}`);
