@@ -32,37 +32,6 @@
   margin-top: 1rem;
 }
 
-.input__label {
-  color: light-dark(var(--light-text), var(--dark-text));
-  display: flex;
-  align-items: center;
-  font-size: 0.8rem;
-  gap: 0.3rem;
-}
-
-.input__label__icon {
-  width: 0.9rem;
-  height: 0.9rem;
-}
-
-.input {
-  background-color: light-dark(var(--light-background), var(--dark-background));
-  padding: 0.3rem 0.92rem;
-  margin-top: 0.3rem;
-  border-radius: 0.3rem;
-  border: 1px solid light-dark(var(--light-border), var(--dark-border)) !important;
-  font-size: 0.8rem;
-}
-
-.input::placeholder {
-  color: light-dark(var(--light-text), var(--dark-subtle-text));
-  font-size: 0.8rem;
-}
-
-.input:focus {
-  outline: 1px solid light-dark(var(--light-border), var(--dark-border)) !important;
-}
-
 .form__action__container {
   display: flex;
   justify-content: space-between;

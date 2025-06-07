@@ -33,6 +33,8 @@
 
 .theme__switch__button {
   border: none;
+  -webkit-animation: var(--slide-fwd-center);
+  animation: var(--slide-fwd-center);
 }
 
 .theme__switch__button:hover {
@@ -45,8 +47,7 @@
   color: #fffacd;
   background: #FFD700;
   border: none;
-  animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+
 }
 
 .moon {
@@ -55,30 +56,4 @@
   border: none;
   color: #E0E7EF;
   background: #B0C4DE;
-  animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-@-webkit-keyframes slide-top {
-  0% {
-    -webkit-transform: translateY(100px);
-    transform: translateY(100px);
-  }
-
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-}
-
-@keyframes slide-top {
-  0% {
-    -webkit-transform: translateY(100px);
-    transform: translateY(100px);
-  }
-
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
 }

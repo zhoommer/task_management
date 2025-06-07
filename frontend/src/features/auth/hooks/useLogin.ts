@@ -1,9 +1,10 @@
-import { useState } from "react";
 import { authService } from "../services/authService";
-import { type InitialState } from "../types";
 import { useAuthProvider } from "@/context/authContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 
 export default function useLogin() {
@@ -11,25 +12,24 @@ export default function useLogin() {
 
   const { loading, setLoading, setAuthenticated } = useAuthProvider();
 
-  const [formState, setFormState] = useState<InitialState>({
-    email: '',
-    passwordHash: '',
+  const FormSchema = z.object({
+    email: z.string().email('Geçerli bir e-posta adresi girin.'),
+    passwordHash: z.string()
+    // .min(6, 'Parola en az 6 karakter olmalıdır.'),
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name;
-    const value = event.target.value;
+  const { register, handleSubmit, formState: { errors } } = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit',
+  })
 
-    setFormState({ ...formState, [name]: value })
-  }
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       setLoading(true);
 
-      const response = await authService.login(formState);
+      const response = await authService.login(data);
 
       localStorage.setItem('token', response.data.token);
 
@@ -43,8 +43,9 @@ export default function useLogin() {
 
       navigate('/?user=&project=');
 
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      toast.error(error.response?.data?.error);
     } finally {
       setLoading(false);
     }
@@ -52,7 +53,9 @@ export default function useLogin() {
 
   return {
     loading,
-    handleChange,
+    register,
     handleSubmit,
+    errors,
+    onSubmit,
   }
 }
