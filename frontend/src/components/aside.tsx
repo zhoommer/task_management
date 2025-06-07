@@ -72,7 +72,7 @@ const Aside = () => {
                 aria-invalid={errors.name ? 'true' : 'false'}
                 {...register('name')}
                 className={`input${errors.name ? ' input--error' : ''}`}
-                placeholder="Proje adı giriniz"
+                placeholder="Proje adı girin"
               />
             </div>
             <div>
@@ -86,12 +86,19 @@ const Aside = () => {
                 {...register('description')}
                 className={`input${errors.description ? ' input--error' : ''}`}
                 name="description"
-                placeholder="Proje açıklaması giriniz"
+                placeholder="Proje açıklaması girin"
               />
             </div>
 
             <div>
-              <button type="submit" className="add__project__button" style={{ cursor: loading ? 'progress' : 'default' }} disabled={loading}>Ekle</button>
+              <button
+                type="submit"
+                className="add__project__button"
+                style={{ cursor: loading ? 'progress' : 'default' }}
+                disabled={loading}
+              >
+                Ekle
+              </button>
             </div>
           </form>
         </div>

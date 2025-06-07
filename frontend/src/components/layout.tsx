@@ -1,6 +1,6 @@
+import CreateTask from "@/features/task/components/createTask";
 import Aside from "./aside";
 import Navbar from "./navbar";
-import CreateTaskButton from "./ui/buttons/createTaskButton";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -9,7 +9,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <div className="main">
         <Aside />
         <section>{children}</section>
-        <CreateTaskButton />
+        <CreateTask />
       </div>
     </div>
   )

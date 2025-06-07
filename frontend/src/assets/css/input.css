@@ -32,10 +32,26 @@
 }
 
 .input::placeholder {
-  color: light-dark(var(--light-text), var(--dark-subtle-text));
+  color: light-dark(var(--light-subtle-text), var(--dark-subtle-text));
   font-size: 0.8rem;
 }
 
 .input:focus {
   outline: 1px solid light-dark(var(--light-border), var(--dark-border)) !important;
+}
+
+select {
+  width: 90%;
+  padding: 0.3rem 0.92rem;
+  background-color: light-dark(var(--light-background), var(--dark-background));
+  border: 1px solid light-dark(var(--light-border), var(--dark-border)) !important;
+  border-radius: 0.3rem;
+}
+
+select.error {
+  border: 1px solid light-dark(var(--light-error), var(--dark-error)) !important;
+}
+
+textarea {
+  width: 90%;
 }

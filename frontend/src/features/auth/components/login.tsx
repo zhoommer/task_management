@@ -3,11 +3,10 @@ import { Lock, User, LogIn, PlusCircle, Loader2 } from 'lucide-react';
 import useLogin from '../hooks/useLogin';
 
 const LoginPage = () => {
-  const { loading, handleChange, handleSubmit } = useLogin();
-
+  const { loading, register, handleSubmit, errors, onSubmit } = useLogin();
 
   return (
-    <form onSubmit={handleSubmit} className='login__form'>
+    <form onSubmit={handleSubmit(onSubmit)} className='login__form'>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -22,32 +21,36 @@ const LoginPage = () => {
         </div>
 
         <div className="form__item">
-          <label htmlFor="email" className='input__label'>
+          <label
+            htmlFor="email"
+            className={`input__label${errors.email ? ' input__label--error' : ''}`}
+          >
             <User className="input__label__icon" />
             Email
           </label>
           <input
-            id='passwordHash'
-            name="email"
+            {...register('email')}
+            className={`input${errors.email ? ' input--error' : ''}`}
+            name='email'
             type="email"
             placeholder="Enter your email"
-            className='input'
-            onChange={handleChange}
           />
         </div>
         <div className="form__item">
-          <label htmlFor="password" className='input__label'>
+          <label
+            htmlFor="password"
+            className={`input__label${errors.passwordHash ? ' input__label--error' : ''}`}
+          >
             <Lock className="input__label__icon" />
             Parola
           </label>
 
           <input
-            id='passwordHash'
+            {...register('passwordHash')}
+            className={`input${errors.passwordHash ? ' input--error' : ''}`}
             name='passwordHash'
             type="password"
             placeholder="Enter your password"
-            className='input'
-            onChange={handleChange}
           />
         </div>
 

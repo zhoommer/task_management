@@ -21,10 +21,10 @@ export default function useCreateTask() {
   const FormSchema = z.object({
     title: z.string({
       required_error: "Zorunlu alan",
-    }),
+    }).min(1, 'Zorunlu alan'),
     description: z.string({
       required_error: "Zorunlu alan",
-    }),
+    }).min(1, 'Zorunlu alan'),
     priority: z.enum(["low", "medium", "high", "critical"], {
       required_error: "Zorunlu alan",
     }),
@@ -33,10 +33,10 @@ export default function useCreateTask() {
     }),
     projectId: z.string({
       required_error: "Zorunlu alan",
-    }),
+    }).min(1, "Proje seçiniz"),
     assignedUserId: z.string({
       required_error: "Zorunlu alan",
-    })
+    }).min(1, 'Kullanıcı seçiniz')
   });
 
 
