@@ -41,7 +41,7 @@ export default function useLogin() {
 
       toast.success('Tekrar hoşgeldiniz.');
 
-      navigate('/?user=&project=');
+      navigate(`/?user=${response.data.user.id}&project=`);
 
     } catch (error: any) {
       console.log(error);
