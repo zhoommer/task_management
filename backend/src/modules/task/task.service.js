@@ -50,7 +50,7 @@ const create = async (body, createdById) => {
       await prisma.taskAssignment.create({
         data: { taskId: task.id, userId: assignedUserId }
       });
-      return task;
+      return task
     });
     return {
       id: result.id,

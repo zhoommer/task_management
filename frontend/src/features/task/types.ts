@@ -45,7 +45,7 @@ export type CreateTaskBody = {
   title: string;
   description: string;
   priority: 'low' | 'medium' | 'high' | 'critical';
-  dueDate: Date;
+  dueDate: string;
   projectId: number;
   assignedUserId: string;
 }
