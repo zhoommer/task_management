@@ -41,9 +41,16 @@ export default function useWaitingTask() {
     setTaskList(updatedList);
   };
 
-  const handleDrop = () => {
+  const handleDrop = async (columnStatus: 'waiting' | 'inprogress' | 'test' | 'done') => {
     setDraggedIndex(null);
-    // Optionally: persist new order here
+    if (draggedIndex !== null) {
+      const droppedTask = taskList[draggedIndex];
+      try {
+        await taskService.updateStatus(droppedTask.id, columnStatus);
+      } catch (error) {
+        console.error("Error updating task status:", error);
+      }
+    }
   };
 
   useEffect(() => {

@@ -66,13 +66,15 @@ const update = async (req, res) => {
 const updateTaskStatus = async (req, res) => {
   const { status } = req.body;
 
+  const { id } = req.params;
+
   if (!status) return res.status(400).json({ message: 'Status field is required.' });
 
   if (!STATUS.includes(status)) return res.status(400).json({ message: 'Status must be waiting, inprogress, test or done.' });
 
-  const updatedTask = await taskService.updateTaskStatus(status);
+  const updatedTask = await taskService.updateTaskStatus(id, status);
 
-  return status(200).json({ message: 'Task updated succesfully.', data: updatedTask });
+  return res.status(200).json({ message: 'Task updated succesfully.', data: updatedTask });
 }
 
 const deleteTask = async (req, res) => {

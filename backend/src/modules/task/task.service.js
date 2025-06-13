@@ -84,7 +84,7 @@ const update = async (body, id) => {
 
 const updateTaskStatus = async (id, status) => {
   try {
-    return await prisma.task.update({ where: id, data: { status } });
+    return await prisma.task.update({ where: { id: Number(id) }, data: { status: status } });
   } catch (error) {
     console.log(error);
   }
