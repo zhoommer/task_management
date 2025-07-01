@@ -1,113 +1,115 @@
 const { PrismaClient } = require('@prisma/client');
+const { FIELDS, STATUS, PRIORITY } = require('./constants');
+const validateFields = require('../../utils/validateFields');
 
-const prisma = new PrismaClient();
+class TaskService {
+  constructor() {
+    this.prisma = new PrismaClient();
+  }
 
-const getAll = async (queries) => {
+  async getAll(queries) {
+    const { status, userId } = queries;
+    const projectId = Number(queries.projectId);
 
-  const { status, userId } = queries;
+    const where = {
+      ...(userId && { assignments: { some: { userId } } }),
+      ...(projectId && { projectId }),
+      ...(status && { status }),
+    };
 
-  const projectId = Number(queries.projectId);
+    try {
+      const allTasks = await this.prisma.task.findMany({
+        where,
+        include: {
+          createdBy: { select: { id: true, name: true, createdAt: true } },
+          assignments: { select: { user: { select: { name: true } } } },
+        },
+      });
+      return allTasks;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  const where = {
-    ...(userId && { assignments: { some: { userId } } }),
-    ...(projectId && { projectId }),
-    ...(status && { status }),
-  };
+  async getById(id) {
+    if (!id) throw new Error('Task ID is required.');
 
-  try {
-    const allTasks = await prisma.task.findMany({
-      where,
+    const task = await this.prisma.task.findUnique({
+      where: { id },
       include: {
         createdBy: { select: { id: true, name: true, createdAt: true } },
-        assignments: { select: { user: { select: { name: true } } } },
-      },
+        assignments: { select: { user: { select: { id: true, name: true } } } },
+      }
     });
-    return allTasks;
-  } catch (error) {
-    console.error(error);
+    return task;
   }
-}
 
-const getById = async (id) => {
-  const task = await prisma.task.findUnique({
-    where: { id },
-    include: {
-      createdBy: { select: { id: true, name: true, createdAt: true } },
-      assignments: { select: { user: { select: { id: true, name: true } } } },
+  async create(body, createdById) {
+    if (!PRIORITY.includes(body.priority)) throw new Error('Priority must be low, medium, high, or critical.');
+
+    const result = validateFields(body, FIELDS);
+    if (!result.valid) throw new Error(`Missing or invalid field: ${result.missingField}`);
+
+    if (!createdById) throw new Error('Creator ID is required.');
+
+    const { title, description, priority, dueDate, projectId, assignedUserId } = body;
+
+    try {
+      const result = await this.prisma.$transaction(async (prisma) => {
+        const task = await prisma.task.create({
+          data: { title, description, status: 'waiting', priority, dueDate, projectId, createdById }
+        });
+        await prisma.taskAssignment.create({
+          data: { taskId: task.id, userId: assignedUserId }
+        });
+        return task;
+      });
+      return result;
+    } catch (error) {
+      console.error(error);
     }
-  });
-  return task;
-}
+  }
 
-const create = async (body, createdById) => {
-  const { title, description, priority, dueDate, projectId, assignedUserId } = body;
+  async update(body, id) {
+    if (!STATUS.includes(body.status)) throw new Error('Status must be waiting, inprogress, test, or done.');
+    if (!PRIORITY.includes(body.priority)) throw new Error('Priority must be low, medium, high, or critical.');
 
-  try {
-    const result = await prisma.$transaction(async (prisma) => {
-      const task = await prisma.task.create({
-        data: { title, description, status: 'waiting', priority, dueDate, projectId, createdById }
+    const result = validateFields(body, FIELDS);
+    if (!result.valid) throw new Error(`Missing or invalid field: ${result.missingField}`);
+
+    try {
+      const updatedTask = await this.prisma.task.update({
+        where: { id },
+        data: body,
       });
-      await prisma.taskAssignment.create({
-        data: { taskId: task.id, userId: assignedUserId }
+      return updatedTask;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async updateTaskStatus(id, status) {
+    if (!STATUS.includes(status)) throw new Error('Status must be waiting, inprogress, test, or done.');
+
+    try {
+      return await this.prisma.task.update({ where: { id: Number(id) }, data: { status } });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async deleteTask(id) {
+    if (!id) throw new Error('Task ID is required.');
+
+    try {
+      const deletedTask = await this.prisma.task.delete({
+        where: { id },
       });
-      return task
-    });
-    return {
-      id: result.id,
-      title: result.title,
-      description: result.description,
-      status: result.status,
-      priority: result.priority,
-      dueDate: result.dueDate,
-      projectId: result.projectId,
-      assignedUserId: result.assignedUserId,
-    };
-  } catch (error) {
-    console.error(error);
+      return deletedTask;
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
-const update = async (body, id) => {
-  const { title, description, status, priority, dueDate, projectId } = body;
-
-  try {
-    const updatedTask = await prisma.task.update({
-      where: { id },
-      data: { title, description, status, priority, dueDate, projectId },
-    });
-
-    return updatedTask;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-const updateTaskStatus = async (id, status) => {
-  try {
-    return await prisma.task.update({ where: { id: Number(id) }, data: { status: status } });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-
-const deleteTask = async (id) => {
-  try {
-    const deletedTask = await prisma.task.delete({
-      where: { id },
-    });
-
-    return deletedTask;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-module.exports = {
-  getAll,
-  getById,
-  create,
-  update,
-  updateTaskStatus,
-  deleteTask,
-}
+module.exports = new TaskService();
