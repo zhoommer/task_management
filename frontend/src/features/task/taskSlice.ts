@@ -40,6 +40,9 @@ export const taskSlice = createSlice({
     setDoneTasks: (state, action: PayloadAction<Task[]>) => {
       state.doneTasks = action.payload;
     },
+    addTask: (state, action: PayloadAction<Task>) => {
+      state.waitingTasks.push(action.payload);
+    },
     removeTask: (
       state,
       action: PayloadAction<{
@@ -85,6 +88,7 @@ export const {
   setInProgressTasks,
   setTestTasks,
   setDoneTasks,
+  addTask,
   removeTask,
   openTaskDetail,
   closeTaskDetail,

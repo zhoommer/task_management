@@ -14,7 +14,7 @@ const WaitingTask = () => {
         <h3 className='task__title waiting__title'>Bekleyen</h3>
         <span className='task__count waiting__count'>{taskList ? taskList.length : 0}</span>
       </div>
-      <AnimatedDiv taskList={taskList} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={handleDrop} />
+      <AnimatedDiv taskList={taskList} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={async () => handleDrop('waiting')} />
     </div>
   )
 }

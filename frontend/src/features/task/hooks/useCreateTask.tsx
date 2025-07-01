@@ -7,9 +7,10 @@ import { projectService } from "@/features/project/services/projectService";
 import { userService } from "@/features/user/services/userService";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "@/features/store";
-import { closeDialog } from "@/features/dialog/dialogSlice";
 import { setProjects } from "@/features/project/projectSlice";
 import { setUsers } from "@/features/user/userSlice";
+import { parse } from "date-fns";
+import { addTask } from "../taskSlice";
 
 
 export default function useCreateTask() {
@@ -20,7 +21,6 @@ export default function useCreateTask() {
 
   const FormSchema = z.object({
     title: z.string({
-      required_error: "Zorunlu alan",
     }).min(1, 'Zorunlu alan'),
     description: z.string({
       required_error: "Zorunlu alan",
@@ -28,9 +28,14 @@ export default function useCreateTask() {
     priority: z.enum(["low", "medium", "high", "critical"], {
       required_error: "Zorunlu alan",
     }),
-    dueDate: z.date({
-      required_error: "Zorunlu alan",
-    }),
+    dueDate: z.string()
+      .refine((val) => val.length > 0, {
+        message: "Zorunlu alan",
+      })
+      .transform((val) => {
+        const parsed = parse(val, "yyyy-MM-dd'T'HH:mm", new Date());
+        return parsed.toISOString(); // ISO 8601 UTC string
+      }),
     projectId: z.string({
       required_error: "Zorunlu alan",
     }).min(1, "Proje seçiniz"),
@@ -74,10 +79,11 @@ export default function useCreateTask() {
       setLoading(true);
       const response = await taskService.create(formData);
       toast.success(`${response.data.title} başarılı bir şekilde oluşturuldu`);
-      dispatch(closeDialog());
+      // dispatch(addTask(response.data));
+      form.reset();
     } catch (error) {
       console.log(error);
-      toast.error(`Bir hata oluştu: ${error}`,)
+      toast.error(`Bir hata oluştu: ${error}`);
     } finally {
       setLoading(false);
     }

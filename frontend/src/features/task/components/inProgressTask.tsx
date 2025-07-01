@@ -16,7 +16,7 @@ const InProgressTask = () => {
         <h3 className='task__title inProgress__title'>Devam Eden</h3>
         <span className='task__count inProgress__count'>{taskList ? taskList.length : 0}</span>
       </div>
-      <AnimatedDiv taskList={taskList} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={handleDrop} />
+      <AnimatedDiv taskList={taskList} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={async () => handleDrop('inprogress')} />
     </div>
   )
 }

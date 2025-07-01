@@ -15,7 +15,7 @@ const DoneTask = () => {
         <h3 className='task__title done__title'>Biten</h3>
         <span className='task__count done__count'>{taskList ? taskList.length : 0}</span>
       </div>
-      <AnimatedDiv taskList={taskList} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={handleDrop} />
+      <AnimatedDiv taskList={taskList} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={async () => handleDrop('done')} />
     </div>
   )
 }

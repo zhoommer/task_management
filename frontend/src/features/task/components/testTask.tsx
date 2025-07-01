@@ -14,7 +14,7 @@ const TestTask = () => {
         <h3 className='task__title test__title'>Test</h3>
         <span className='task__count test__count'>{taskList ? taskList.length : 0}</span>
       </div>
-      <AnimatedDiv taskList={taskList} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={handleDrop} />
+      <AnimatedDiv taskList={taskList} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={async () => handleDrop('test')} />
     </div>
   )
 }

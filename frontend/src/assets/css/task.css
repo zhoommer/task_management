@@ -1,6 +1,6 @@
 .task__container {
   display: grid;
-  grid-template-columns: repeat(4, 3fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
 }
 
@@ -10,7 +10,7 @@
   background-color: light-dark(var(--light-background), var(--dark-background));
   padding: 0.75rem;
   overflow-y: scroll;
-  height: 90vh;
+  height: 88vh;
   scrollbar-width: none;
   color: light-dark(var(--light-text), var(--dark-text));
 }
@@ -23,6 +23,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  position: sticky;
+  top: 0;
+  opacity: 0.9;
 }
 
 .task__title {
@@ -162,6 +165,11 @@
   border-bottom-left-radius: 0.5rem;
   -webkit-animation: scale-up-hor-right 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
   animation: scale-up-hor-right 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .create__task__form {
